@@ -5,10 +5,11 @@ import Academics from "./components/Academics";
 import CampusLife from "./components/CampusLife";
 import Testimonials from "./components/Testimonials";
 import Admissions from "./components/Admissions";
+import Footer from "./components/Footer";
 
 export default function App() {
   return (
-    <div className="site-shell">
+    <div className="site-shell" id="top">
       <Navbar />
       <main>
         <Hero />
@@ -18,6 +19,7 @@ export default function App() {
         <Testimonials />
         <Admissions />
       </main>
+      <Footer />
     </div>
   );
 }
