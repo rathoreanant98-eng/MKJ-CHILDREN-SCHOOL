@@ -1,4 +1,8 @@
 import { motion, useReducedMotion } from "motion/react";
+import "../visual-enhancements.css";
+
+const heroPhoto =
+  "https://images.unsplash.com/photo-1719159381916-062fa9f435a6?auto=format&fit=crop&w=1600&q=82";
 
 function ArrowIcon() {
   return (
@@ -25,10 +29,10 @@ export default function Hero() {
   const reduceMotion = useReducedMotion();
 
   const entrance = (delay = 0) => ({
-    initial: reduceMotion ? false : { opacity: 0, y: 22 },
+    initial: reduceMotion ? false : { opacity: 0, y: 34 },
     animate: { opacity: 1, y: 0 },
     transition: {
-      duration: reduceMotion ? 0 : 0.56,
+      duration: reduceMotion ? 0 : 0.72,
       delay: reduceMotion ? 0 : delay,
       ease: "easeOut",
     },
@@ -42,44 +46,44 @@ export default function Hero() {
       <motion.div
         className="hero-orbit hero-orbit-one"
         aria-hidden="true"
-        animate={reduceMotion ? undefined : { y: [0, -14, 0], rotate: [0, 3, 0] }}
+        animate={reduceMotion ? undefined : { y: [0, -16, 0], rotate: [0, 4, 0] }}
         transition={
           reduceMotion
             ? undefined
-            : { duration: 9, repeat: Infinity, ease: "easeInOut" }
+            : { duration: 8.5, repeat: Infinity, ease: "easeInOut" }
         }
       />
       <motion.div
         className="hero-orbit hero-orbit-two"
         aria-hidden="true"
-        animate={reduceMotion ? undefined : { y: [0, 12, 0], x: [0, -8, 0] }}
+        animate={reduceMotion ? undefined : { y: [0, 14, 0], x: [0, -10, 0] }}
         transition={
           reduceMotion
             ? undefined
-            : { duration: 11, repeat: Infinity, ease: "easeInOut", delay: 0.8 }
+            : { duration: 10.5, repeat: Infinity, ease: "easeInOut", delay: 0.8 }
         }
       />
 
       <div className="hero-container">
         <div className="hero-copy">
-          <motion.div className="hero-eyebrow" {...entrance(0.08)}>
+          <motion.div className="hero-eyebrow" {...entrance(0.06)}>
             <span className="hero-eyebrow-dot" aria-hidden="true" />
             Learning with purpose. Growing with care.
           </motion.div>
 
-          <motion.h1 id="hero-title" {...entrance(0.16)}>
+          <motion.h1 id="hero-title" {...entrance(0.14)}>
             A school where curious minds grow with confidence.
           </motion.h1>
 
-          <motion.p className="hero-supporting-copy" {...entrance(0.28)}>
+          <motion.p className="hero-supporting-copy" {...entrance(0.26)}>
             MKJ Children Upper Primary School brings thoughtful teaching, strong foundations, and a genuinely caring community together so every child can learn, belong, and thrive.
           </motion.p>
 
-          <motion.div className="hero-actions" {...entrance(0.4)}>
+          <motion.div className="hero-actions" {...entrance(0.38)}>
             <motion.a
               className="hero-primary-cta"
               href="#admissions"
-              whileHover={reduceMotion ? undefined : { scale: 1.04 }}
+              whileHover={reduceMotion ? undefined : { scale: 1.05, y: -2 }}
               whileTap={reduceMotion ? undefined : { scale: 0.97 }}
               transition={{ duration: 0.18 }}
             >
@@ -88,38 +92,62 @@ export default function Hero() {
             </motion.a>
           </motion.div>
 
-          <motion.div className="hero-trust" {...entrance(0.52)}>
-            {trustItems.map((item) => (
-              <div className="hero-trust-item" key={item.label}>
+          <motion.div className="hero-trust" {...entrance(0.5)}>
+            {trustItems.map((item, index) => (
+              <motion.div
+                className="hero-trust-item"
+                key={item.label}
+                initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: reduceMotion ? 0 : 0.5,
+                  delay: reduceMotion ? 0 : 0.5 + index * 0.1,
+                  ease: "easeOut",
+                }}
+              >
                 <strong>{item.value}</strong>
                 <span>{item.label}</span>
-              </div>
+              </motion.div>
             ))}
           </motion.div>
         </div>
 
         <motion.div
-          className="hero-visual"
-          aria-hidden="true"
-          initial={reduceMotion ? false : { opacity: 0, scale: 0.94, x: 24 }}
-          animate={{ opacity: 1, scale: 1, x: 0 }}
-          transition={{ duration: reduceMotion ? 0 : 0.72, delay: reduceMotion ? 0 : 0.28, ease: "easeOut" }}
+          className="hero-visual hero-visual--photo"
+          initial={reduceMotion ? false : { opacity: 0, scale: 0.88, x: 52, rotate: 2.5 }}
+          animate={{ opacity: 1, scale: 1, x: 0, rotate: 0 }}
+          transition={{ duration: reduceMotion ? 0 : 0.9, delay: reduceMotion ? 0 : 0.22, ease: "easeOut" }}
         >
-          <div className="hero-visual-halo" />
-          <div className="hero-story-card hero-story-card--main">
-            <div className="hero-story-icon">
-              <span />
-              <span />
-              <span />
-            </div>
-            <p>Learning that feels personal</p>
-            <strong>Known. Encouraged. Ready to grow.</strong>
-          </div>
+          <div className="hero-visual-halo" aria-hidden="true" />
+
+          <figure className="hero-photo-card">
+            <motion.img
+              className="hero-photo"
+              src={heroPhoto}
+              alt="Temporary stock photograph of students learning in a classroom"
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              initial={reduceMotion ? false : { scale: 1.12 }}
+              animate={reduceMotion ? { scale: 1 } : { scale: [1.04, 1.085, 1.04] }}
+              transition={
+                reduceMotion
+                  ? { duration: 0 }
+                  : { scale: { duration: 12, repeat: Infinity, ease: "easeInOut" } }
+              }
+            />
+            <div className="hero-photo-overlay" aria-hidden="true" />
+            <span className="hero-photo-badge">Preview photography</span>
+            <figcaption className="hero-photo-caption">
+              <span>Learning in action</span>
+              <strong>Thoughtful spaces. Confident learners.</strong>
+            </figcaption>
+          </figure>
 
           <motion.div
             className="hero-story-card hero-story-card--small hero-story-card--top"
-            animate={reduceMotion ? undefined : { y: [0, -8, 0] }}
-            transition={reduceMotion ? undefined : { duration: 6.5, repeat: Infinity, ease: "easeInOut" }}
+            animate={reduceMotion ? undefined : { y: [0, -11, 0], rotate: [0, 1, 0] }}
+            transition={reduceMotion ? undefined : { duration: 5.8, repeat: Infinity, ease: "easeInOut" }}
           >
             <span className="hero-card-kicker">Every day</span>
             <strong>Wonder → Confidence</strong>
@@ -127,11 +155,11 @@ export default function Hero() {
 
           <motion.div
             className="hero-story-card hero-story-card--small hero-story-card--bottom"
-            animate={reduceMotion ? undefined : { y: [0, 8, 0] }}
+            animate={reduceMotion ? undefined : { y: [0, 10, 0], rotate: [0, -1, 0] }}
             transition={
               reduceMotion
                 ? undefined
-                : { duration: 7.5, repeat: Infinity, ease: "easeInOut", delay: 0.7 }
+                : { duration: 6.8, repeat: Infinity, ease: "easeInOut", delay: 0.7 }
             }
           >
             <span className="hero-card-kicker">Our promise</span>
