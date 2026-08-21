@@ -5,13 +5,7 @@ const navItems = ["About", "Academics", "Admissions", "Campus Life", "Contact"];
 
 function MenuIcon({ open }) {
   return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-    >
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       {open ? (
         <>
           <path d="M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
@@ -45,7 +39,7 @@ export default function Navbar() {
   useEffect(() => {
     const onScroll = () => {
       const hero = document.getElementById("top");
-      const headerOffset = 88;
+      const headerOffset = 96;
 
       if (hero) {
         setPastHero(hero.getBoundingClientRect().bottom <= headerOffset);
@@ -73,17 +67,25 @@ export default function Navbar() {
   }, [menuOpen]);
 
   const closeMenu = () => setMenuOpen(false);
-  const motionDuration = reduceMotion ? 0 : 0.24;
 
   return (
     <motion.header
       className={`site-header ${pastHero || menuOpen ? "site-header--solid" : ""}`}
-      initial={reduceMotion ? false : { y: -14, opacity: 0 }}
+      initial={reduceMotion ? false : { y: -24, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: reduceMotion ? 0 : 0.45, ease: "easeOut" }}
+      transition={{
+        duration: reduceMotion ? 0 : 0.62,
+        delay: reduceMotion ? 0 : 0.04,
+        ease: [0.22, 1, 0.36, 1],
+      }}
     >
       <div className="nav-container">
-        <a className="brand" href="#top" aria-label="MKJ Children Upper Primary School home" onClick={closeMenu}>
+        <a
+          className="brand"
+          href="#top"
+          aria-label="MKJ Children Upper Primary School home"
+          onClick={closeMenu}
+        >
           <span className="brand-mark" aria-hidden="true">
             <span className="brand-mark-inner">MKJ</span>
           </span>
@@ -99,7 +101,7 @@ export default function Navbar() {
               key={item}
               className="nav-link"
               href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
-              whileHover={reduceMotion ? undefined : { y: -1 }}
+              whileHover={reduceMotion ? undefined : { y: -2 }}
               transition={{ duration: 0.18 }}
             >
               {item}
@@ -111,11 +113,10 @@ export default function Navbar() {
           <motion.a
             className="primary-nav-cta"
             href="#admissions"
-            whileHover={reduceMotion ? undefined : { scale: 1.04 }}
+            whileHover={reduceMotion ? undefined : { scale: 1.035, y: -2 }}
             whileTap={reduceMotion ? undefined : { scale: 0.97 }}
-            transition={{ duration: 0.18 }}
           >
-            <span>Schedule a Tour</span>
+            <span>Visit MKJ</span>
             <ArrowIcon />
           </motion.a>
 
@@ -126,7 +127,7 @@ export default function Navbar() {
             aria-expanded={menuOpen}
             aria-controls="mobile-navigation"
             onClick={() => setMenuOpen((value) => !value)}
-            whileTap={reduceMotion ? undefined : { scale: 0.96 }}
+            whileTap={reduceMotion ? undefined : { scale: 0.94 }}
           >
             <MenuIcon open={menuOpen} />
           </motion.button>
@@ -138,23 +139,31 @@ export default function Navbar() {
           <motion.div
             id="mobile-navigation"
             className="mobile-menu-wrap"
-            initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
-            transition={{ duration: motionDuration, ease: "easeOut" }}
+            initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: -18, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -12, scale: 0.985 }}
+            transition={{
+              duration: reduceMotion ? 0 : 0.32,
+              ease: [0.22, 1, 0.36, 1],
+            }}
           >
             <nav className="mobile-nav" aria-label="Mobile navigation">
+              <div className="mobile-nav-intro">
+                <span>Explore MKJ</span>
+                <strong>Learning with purpose. Growing with care.</strong>
+              </div>
+
               {navItems.map((item, index) => (
                 <motion.a
                   key={item}
                   className="mobile-nav-link"
                   href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
                   onClick={closeMenu}
-                  initial={reduceMotion ? false : { opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={reduceMotion ? false : { opacity: 0, x: -16 }}
+                  animate={{ opacity: 1, x: 0 }}
                   transition={{
-                    duration: reduceMotion ? 0 : 0.28,
-                    delay: reduceMotion ? 0 : index * 0.045,
+                    duration: reduceMotion ? 0 : 0.35,
+                    delay: reduceMotion ? 0 : 0.08 + index * 0.055,
                     ease: "easeOut",
                   }}
                 >
@@ -167,10 +176,9 @@ export default function Navbar() {
                 className="mobile-primary-cta"
                 href="#admissions"
                 onClick={closeMenu}
-                whileHover={reduceMotion ? undefined : { scale: 1.03 }}
                 whileTap={reduceMotion ? undefined : { scale: 0.97 }}
               >
-                Schedule a Tour
+                Plan a Visit
                 <ArrowIcon />
               </motion.a>
             </nav>
