@@ -1,21 +1,30 @@
-import { motion, useReducedMotion } from "motion/react";
+import { useRef } from "react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "motion/react";
 import "../admissions.css";
 
 const steps = [
   {
     number: "01",
-    title: "Schedule a visit",
-    text: "Meet the school, see learning in action, and ask the questions that matter to your family.",
+    eyebrow: "See the school",
+    title: "Plan a visit",
+    text: "Walk through the learning spaces, meet the school, and ask the questions that matter to your family.",
   },
   {
     number: "02",
-    title: "Share your application",
-    text: "Tell us about your child and provide the information our admissions team needs to guide the next step.",
+    eyebrow: "Start the conversation",
+    title: "Talk with MKJ",
+    text: "Tell us about your child, what you are looking for, and what would help you feel confident about the next step.",
   },
   {
     number: "03",
-    title: "Prepare to join MKJ",
-    text: "Once the admissions process is complete, we help your family get ready for a confident start at school.",
+    eyebrow: "Move forward",
+    title: "Prepare to join",
+    text: "When the admissions process is complete, we help your family get ready for a clear and confident start at school.",
   },
 ];
 
@@ -28,46 +37,58 @@ function ArrowIcon() {
 }
 
 export default function Admissions() {
+  const sectionRef = useRef(null);
   const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const journeyProgress = useTransform(scrollYProgress, [0.12, 0.72], [0, 1]);
 
   return (
-    <section id="admissions" className="admissions-section" aria-labelledby="admissions-title">
-      <div className="admissions-glow admissions-glow--one" aria-hidden="true" />
-      <div className="admissions-glow admissions-glow--two" aria-hidden="true" />
+    <section ref={sectionRef} id="admissions" className="admissions-section admissions-v2" aria-labelledby="admissions-title">
+      <div className="admissions-v2-shape admissions-v2-shape--one" aria-hidden="true" />
+      <div className="admissions-v2-shape admissions-v2-shape--two" aria-hidden="true" />
 
-      <div className="admissions-container">
+      <div className="admissions-container admissions-v2-container">
         <motion.div
-          className="admissions-heading"
-          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-          whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.6 }}
-          transition={{ duration: 0.55, ease: "easeOut" }}
+          className="admissions-heading admissions-v2-heading"
+          initial={reduceMotion ? false : { opacity: 0, y: 38 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: reduceMotion ? 0 : 0.74, ease: [0.22, 1, 0.36, 1] }}
         >
           <span className="section-kicker admissions-kicker">Admissions</span>
-          <h2 id="admissions-title">Your family’s next chapter can start with one conversation.</h2>
+          <h2 id="admissions-title">The next chapter can start with <em>one good conversation.</em></h2>
           <p>
-            Choosing a school is a personal decision. Our admissions journey is designed to help families understand MKJ, ask thoughtful questions, and move forward with clarity.
+            Choosing a school is personal. We want the process to feel clear, human, and unhurried enough for your family to make the right decision.
           </p>
         </motion.div>
 
-        <div className="admissions-steps" aria-label="Admissions journey">
+        <div className="admissions-journey" aria-label="Admissions journey">
+          <div className="admissions-progress admissions-progress--vertical" aria-hidden="true">
+            <motion.span style={{ scaleY: journeyProgress }} />
+          </div>
+          <div className="admissions-progress admissions-progress--horizontal" aria-hidden="true">
+            <motion.span style={{ scaleX: journeyProgress }} />
+          </div>
+
           {steps.map((step, index) => (
             <motion.article
-              className="admissions-step"
+              className="admissions-step admissions-v2-step"
               key={step.number}
-              initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-              whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.45 }}
+              initial={reduceMotion ? false : { opacity: 0, y: 34, scale: 0.96 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.4 }}
               transition={{
-                duration: 0.55,
-                delay: reduceMotion ? 0 : index * 0.13,
-                ease: "easeOut",
+                duration: reduceMotion ? 0 : 0.64,
+                delay: reduceMotion ? 0 : index * 0.11,
+                ease: [0.22, 1, 0.36, 1],
               }}
+              whileHover={reduceMotion ? undefined : { y: -7 }}
             >
-              <div className="admissions-step-topline" aria-hidden="true">
-                <span>{step.number}</span>
-                {index < steps.length - 1 && <span className="admissions-step-line" />}
-              </div>
+              <span className="admissions-v2-number">{step.number}</span>
+              <span className="admissions-v2-eyebrow">{step.eyebrow}</span>
               <h3>{step.title}</h3>
               <p>{step.text}</p>
             </motion.article>
@@ -75,34 +96,40 @@ export default function Admissions() {
         </div>
 
         <motion.div
-          className="admissions-cta-card"
-          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-          whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.45 }}
-          transition={{ duration: 0.58, delay: reduceMotion ? 0 : 0.18, ease: "easeOut" }}
+          className="admissions-cta-card admissions-v2-cta"
+          initial={reduceMotion ? false : { opacity: 0, y: 40, scale: 0.97 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: reduceMotion ? 0 : 0.76, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className="admissions-cta-copy">
             <span className="admissions-cta-label">Ready when you are</span>
-            <h3>Take the first step toward MKJ.</h3>
+            <h3>Come and experience MKJ for yourself.</h3>
             <p>
-              Start with an application, or use your school visit to decide whether MKJ feels like the right fit for your child.
+              Speak with the school directly to plan a visit, ask about admissions, or understand what the next step should be for your child.
             </p>
           </div>
 
-          <motion.a
-            className="admissions-primary-cta"
-            href="#contact"
-            whileHover={reduceMotion ? undefined : { scale: 1.04 }}
-            whileTap={reduceMotion ? undefined : { scale: 0.97 }}
-          >
-            <span>Start Your Application</span>
-            <ArrowIcon />
-          </motion.a>
+          <div className="admissions-v2-actions">
+            <motion.a
+              className="admissions-primary-cta"
+              href="tel:+918104567540"
+              whileHover={reduceMotion ? undefined : { y: -3, scale: 1.025 }}
+              whileTap={reduceMotion ? undefined : { scale: 0.97 }}
+            >
+              <span>Call the school</span>
+              <ArrowIcon />
+            </motion.a>
+            <motion.a
+              className="admissions-secondary-cta"
+              href="mailto:mkjchildrenschool@gmail.com"
+              whileHover={reduceMotion ? undefined : { x: 4 }}
+            >
+              Email MKJ
+              <ArrowIcon />
+            </motion.a>
+          </div>
         </motion.div>
-
-        <p className="admissions-note">
-          The application destination is a launch placeholder until MKJ’s official admissions form or enquiry workflow is connected.
-        </p>
       </div>
     </section>
   );
