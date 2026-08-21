@@ -134,12 +134,9 @@ export default function Hero() {
               whileTap={reduceMotion ? undefined : { scale: 0.97 }}
             >
               Plan a Visit
-              <motion.span
-                aria-hidden="true"
-                whileHover={reduceMotion ? undefined : { x: 4 }}
-              >
+              <span aria-hidden="true">
                 <ArrowIcon />
-              </motion.span>
+              </span>
             </motion.a>
 
             <motion.a
@@ -202,11 +199,7 @@ export default function Hero() {
               loading="eager"
               fetchPriority="high"
               decoding="async"
-              style={
-                reduceMotion
-                  ? undefined
-                  : { y: imageY, scale: imageScale }
-              }
+              style={reduceMotion ? undefined : { y: imageY, scale: imageScale }}
             />
             <div className="hero-v2-photo-wash" aria-hidden="true" />
             <span className="hero-v2-photo-label">Temporary preview photo</span>
@@ -230,16 +223,19 @@ export default function Hero() {
           <motion.div
             className="hero-v2-float hero-v2-float--bottom"
             initial={reduceMotion ? false : { opacity: 0, y: 24, rotate: 4 }}
-            animate={{ opacity: 1, y: 0, rotate: 2 }}
-            transition={{
-              duration: reduceMotion ? 0 : 0.7,
-              delay: reduceMotion ? 0 : 0.84,
-              ease: "easeOut",
-            }}
             animate={
               reduceMotion
                 ? { opacity: 1, y: 0, rotate: 2 }
                 : { opacity: 1, y: [0, -7, 0], rotate: [2, 1, 2] }
+            }
+            transition={
+              reduceMotion
+                ? { duration: 0 }
+                : {
+                    opacity: { duration: 0.55, delay: 0.84 },
+                    y: { duration: 6.4, repeat: Infinity, ease: "easeInOut", delay: 1.1 },
+                    rotate: { duration: 6.4, repeat: Infinity, ease: "easeInOut", delay: 1.1 },
+                  }
             }
           >
             <span>Our approach</span>
