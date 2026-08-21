@@ -1,0 +1,247 @@
+/* Temporary photography + stronger motion pass.
+   The stock images are preview-only and are intended to be replaced with authentic MKJ photography. */
+
+.hero-visual--photo {
+  min-height: 390px;
+}
+
+.hero-photo-card {
+  position: absolute;
+  z-index: 2;
+  inset: 42px 20px 34px;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 32px 32px 32px 12px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 30px 76px rgba(2, 12, 29, 0.34);
+}
+
+.hero-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  object-fit: cover;
+  object-position: center 48%;
+  will-change: transform;
+}
+
+.hero-photo-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(7, 24, 47, 0.04) 36%, rgba(7, 24, 47, 0.82) 100%),
+    linear-gradient(90deg, rgba(7, 24, 47, 0.08), transparent 48%);
+  pointer-events: none;
+}
+
+.hero-photo-badge {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  padding: 8px 11px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.88);
+  background: rgba(7, 24, 47, 0.42);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero-photo-caption {
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  bottom: 24px;
+  color: #fff;
+}
+
+.hero-photo-caption span,
+.hero-photo-caption strong {
+  display: block;
+}
+
+.hero-photo-caption span {
+  color: var(--gold-500);
+  font-size: 0.69rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero-photo-caption strong {
+  max-width: 310px;
+  margin-top: 7px;
+  font-size: clamp(1.1rem, 4.2vw, 1.55rem);
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+}
+
+.hero-visual--photo .hero-story-card--top {
+  z-index: 4;
+  top: 12px;
+  right: -4px;
+}
+
+.hero-visual--photo .hero-story-card--bottom {
+  z-index: 4;
+  left: -2px;
+  bottom: 8px;
+}
+
+.mission-photo-shell {
+  position: relative;
+}
+
+.mission-photo {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  will-change: transform;
+}
+
+.mission-photo-shell::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(7, 24, 47, 0.08) 34%, rgba(7, 24, 47, 0.64) 100%),
+    radial-gradient(circle at 80% 12%, rgba(232, 180, 79, 0.26), transparent 32%);
+  pointer-events: none;
+}
+
+.mission-photo-shell .mission-note {
+  z-index: 3;
+}
+
+.mission-photo-credit {
+  position: absolute;
+  z-index: 3;
+  left: 18px;
+  bottom: 18px;
+  max-width: 210px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.84);
+  background: rgba(7, 24, 47, 0.48);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-size: 0.7rem;
+  line-height: 1.45;
+}
+
+.campus-card {
+  transform-origin: center bottom;
+  transition:
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.campus-card:hover {
+  border-color: rgba(25, 81, 138, 0.18);
+  box-shadow: 0 26px 58px rgba(7, 24, 47, 0.14);
+}
+
+.campus-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+.campus-card--wide .campus-photo {
+  object-position: center 46%;
+}
+
+.campus-card--tall .campus-photo {
+  object-position: center;
+}
+
+.campus-photo-label {
+  position: absolute;
+  z-index: 3;
+  top: 14px;
+  left: 14px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(7, 24, 47, 0.58);
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+  font-size: 0.62rem;
+  font-weight: 780;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.campus-note {
+  max-width: 760px;
+  color: #5c6c80;
+}
+
+@media (max-width: 420px) {
+  .hero-photo-card {
+    inset: 34px 12px 30px;
+    border-radius: 26px 26px 26px 10px;
+  }
+
+  .hero-photo {
+    min-height: 286px;
+  }
+
+  .hero-photo-caption {
+    left: 18px;
+    right: 18px;
+    bottom: 20px;
+  }
+
+  .hero-photo-badge {
+    top: 14px;
+    left: 14px;
+  }
+}
+
+@media (min-width: 980px) {
+  .hero-visual--photo {
+    min-height: 500px;
+  }
+
+  .hero-photo-card {
+    inset: 48px 12px 48px 16px;
+  }
+
+  .hero-photo {
+    min-height: 404px;
+  }
+
+  .hero-visual--photo .hero-story-card--top {
+    top: 24px;
+    right: -14px;
+  }
+
+  .hero-visual--photo .hero-story-card--bottom {
+    left: -22px;
+    bottom: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-photo,
+  .mission-photo,
+  .campus-photo,
+  .campus-card {
+    transform: none !important;
+  }
+}
