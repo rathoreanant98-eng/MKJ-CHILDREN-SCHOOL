@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from "motion/react";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import "../testimonials.css";
 
 const testimonials = [
@@ -8,6 +9,7 @@ const testimonials = [
     label: "MKJ Parent",
     role: "Sample family testimonial",
     initial: "P",
+    tone: "coral",
   },
   {
     quote:
@@ -15,6 +17,7 @@ const testimonials = [
     label: "MKJ Student",
     role: "Sample student testimonial",
     initial: "S",
+    tone: "mint",
   },
   {
     quote:
@@ -22,6 +25,7 @@ const testimonials = [
     label: "MKJ Family",
     role: "Sample family testimonial",
     initial: "F",
+    tone: "blue",
   },
 ];
 
@@ -35,70 +39,89 @@ function QuoteMark() {
 
 export default function Testimonials() {
   const reduceMotion = useReducedMotion();
+  const [active, setActive] = useState(0);
+  const testimonial = testimonials[active];
+
+  useEffect(() => {
+    if (reduceMotion) return undefined;
+    const timer = window.setInterval(() => {
+      setActive((value) => (value + 1) % testimonials.length);
+    }, 7000);
+    return () => window.clearInterval(timer);
+  }, [reduceMotion]);
 
   return (
-    <section className="testimonials-section" aria-labelledby="testimonials-title">
-      <div className="testimonials-orb testimonials-orb--one" aria-hidden="true" />
-      <div className="testimonials-orb testimonials-orb--two" aria-hidden="true" />
+    <section className="testimonials-section testimonials-v2" aria-labelledby="testimonials-title">
+      <div className="testimonials-v2-word" aria-hidden="true">VOICES</div>
 
-      <div className="testimonials-container">
+      <div className="testimonials-container testimonials-v2-container">
         <motion.div
-          className="testimonials-heading"
-          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-          whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.6 }}
-          transition={{ duration: 0.55, ease: "easeOut" }}
+          className="testimonials-heading testimonials-v2-heading"
+          initial={reduceMotion ? false : { opacity: 0, y: 36 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: reduceMotion ? 0 : 0.72, ease: [0.22, 1, 0.36, 1] }}
         >
           <span className="section-kicker">Voices from our community</span>
-          <h2 id="testimonials-title">What families value in an MKJ education.</h2>
+          <h2 id="testimonials-title">School should feel good <em>from the inside.</em></h2>
           <p>
-            The strongest school communities are built on trust, communication, and children who feel confident being themselves while they learn.
+            Trust is built in everyday moments — how children are spoken to, how questions are welcomed, and how families are kept close to the learning journey.
           </p>
         </motion.div>
 
-        <div className="testimonials-grid">
-          {testimonials.map((testimonial, index) => (
-            <motion.article
-              className="testimonial-card"
-              key={testimonial.label + index}
-              initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-              whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.35 }}
-              transition={{
-                duration: 0.55,
-                delay: reduceMotion ? 0 : index * 0.12,
-                ease: "easeOut",
-              }}
-              whileHover={reduceMotion ? undefined : { y: -5 }}
-            >
-              <div className="testimonial-quote-mark">
-                <QuoteMark />
-              </div>
-
-              <blockquote>“{testimonial.quote}”</blockquote>
-
-              <div className="testimonial-person">
-                <div className="testimonial-avatar" aria-hidden="true">
-                  {testimonial.initial}
-                </div>
-                <div>
-                  <strong>{testimonial.label}</strong>
-                  <span>{testimonial.role}</span>
-                </div>
-              </div>
-            </motion.article>
-          ))}
-        </div>
-
-        <motion.p
-          className="testimonial-disclaimer"
-          initial={reduceMotion ? false : { opacity: 0 }}
-          whileInView={reduceMotion ? undefined : { opacity: 1 }}
-          viewport={{ once: true, amount: 0.8 }}
-          transition={{ duration: 0.5, delay: reduceMotion ? 0 : 0.2 }}
+        <motion.div
+          className="testimonial-stage"
+          initial={reduceMotion ? false : { opacity: 0, y: 42, scale: 0.96 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.24 }}
+          transition={{ duration: reduceMotion ? 0 : 0.82, ease: [0.22, 1, 0.36, 1] }}
         >
-          Sample copy for layout preview — replace with approved MKJ family and student testimonials before launch.
-        </motion.p>
+          <div className={`testimonial-stage-accent testimonial-stage-accent--${testimonial.tone}`} aria-hidden="true" />
+          <div className="testimonial-stage-quote-mark"><QuoteMark /></div>
+
+          <div className="testimonial-stage-copy" aria-live="polite">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={active}
+                initial={reduceMotion ? false : { opacity: 0, y: 28, filter: "blur(5px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -20, filter: "blur(4px)" }}
+                transition={{ duration: reduceMotion ? 0 : 0.5, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <blockquote>“{testimonial.quote}”</blockquote>
+                <div className="testimonial-person">
+                  <div className={`testimonial-avatar testimonial-avatar--${testimonial.tone}`} aria-hidden="true">
+                    {testimonial.initial}
+                  </div>
+                  <div>
+                    <strong>{testimonial.label}</strong>
+                    <span>{testimonial.role}</span>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          <div className="testimonial-controls" aria-label="Choose testimonial">
+            {testimonials.map((item, index) => (
+              <button
+                key={item.label + index}
+                type="button"
+                className={index === active ? "is-active" : ""}
+                onClick={() => setActive(index)}
+                aria-label={`Show testimonial ${index + 1}`}
+                aria-pressed={index === active}
+              >
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <i />
+              </button>
+            ))}
+          </div>
+        </motion.div>
+
+        <p className="testimonial-disclaimer">
+          Sample copy for layout preview — replace with approved MKJ family and student testimonials before final public launch.
+        </p>
       </div>
     </section>
   );

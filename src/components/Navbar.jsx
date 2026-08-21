@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+  useScroll,
+} from "motion/react";
 
 const navItems = ["About", "Academics", "Admissions", "Campus Life", "Contact"];
 
@@ -35,6 +40,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [pastHero, setPastHero] = useState(false);
   const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll();
 
   useEffect(() => {
     const onScroll = () => {
@@ -185,6 +191,12 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <motion.div
+        className="site-scroll-progress"
+        aria-hidden="true"
+        style={{ scaleX: scrollYProgress }}
+      />
     </motion.header>
   );
 }
