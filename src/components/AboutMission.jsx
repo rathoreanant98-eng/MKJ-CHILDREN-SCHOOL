@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { animate, motion, useInView, useReducedMotion } from "motion/react";
+import "../mission.css";
 
 const stats = [
   { value: 1, suffix: ":1", label: "Every child is known", detail: "Personal attention starts with relationships." },
