@@ -5,6 +5,7 @@ import "./styles.css";
 import "./production.css";
 import "./v2.css";
 import "./experience.css";
+import "./qa.css";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

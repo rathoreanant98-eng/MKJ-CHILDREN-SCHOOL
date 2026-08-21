@@ -1,0 +1,164 @@
+/* Live visual QA fixes — loaded last so these rules only correct V2 layout defects. */
+
+/* Hero: Motion's parent clip-path was clipping the floating cards. Keep the
+   parent unmasked and move the reveal to the photo itself. */
+.hero-v2-visual {
+  clip-path: none !important;
+}
+
+.hero-v2-photo-card {
+  animation: hero-photo-qa-reveal 1.05s cubic-bezier(0.22, 1, 0.36, 1) 180ms both;
+}
+
+.hero-v2-float--top {
+  left: 18px;
+  top: 14%;
+}
+
+.hero-v2-float--bottom {
+  right: 18px;
+}
+
+@keyframes hero-photo-qa-reveal {
+  from {
+    clip-path: inset(0 0 100% 0 round 46px);
+  }
+  to {
+    clip-path: inset(0 0 0 0 round 46px);
+  }
+}
+
+/* Mission → Academics: remove the oversized dead zone after the metric row. */
+@media (min-width: 900px) {
+  .mission-container.mission-v2-container {
+    row-gap: 38px;
+  }
+
+  .mission-stat.mission-v2-stat {
+    min-height: 148px;
+  }
+
+  .mission-v2-stat .mission-stat-value {
+    margin-bottom: 14px;
+  }
+}
+
+/* Campus bento: five cards should resolve to complete rows. The final feature
+   image owns the full row instead of leaving an empty four-column block. */
+@media (min-width: 1024px) {
+  .mission-section.mission-v2 {
+    padding-top: 118px;
+    padding-bottom: 82px;
+  }
+
+  .academics-section.academics-v2 {
+    min-height: 265vh;
+  }
+
+  .campus-grid.campus-v2-grid {
+    grid-auto-flow: dense;
+  }
+
+  .campus-v2 .campus-card:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .campus-v2 .campus-card:last-child .campus-image-wrap {
+    aspect-ratio: 16 / 6.25;
+    min-height: 430px;
+  }
+
+  /* Testimonial typography should feel editorial, not billboard-sized. */
+  .testimonials-container.testimonials-v2-container {
+    grid-template-columns: minmax(310px, 0.62fr) minmax(0, 1.38fr);
+    align-items: start;
+    gap: clamp(52px, 6vw, 84px);
+  }
+
+  .testimonials-heading.testimonials-v2-heading {
+    padding-top: 18px;
+  }
+
+  .testimonials-v2-heading h2 {
+    max-width: 560px;
+    font-size: clamp(3.35rem, 4.3vw, 4.35rem);
+    line-height: 0.98;
+    letter-spacing: -0.055em;
+  }
+
+  .testimonials-v2-heading p {
+    max-width: 560px;
+    font-size: 1rem;
+    line-height: 1.68;
+  }
+
+  .testimonial-stage {
+    min-height: 500px;
+    padding: 40px;
+    border-radius: 34px 34px 92px 34px;
+  }
+
+  .testimonial-stage-copy {
+    max-width: 760px;
+    margin-top: 34px;
+  }
+
+  .testimonial-stage blockquote {
+    max-width: 760px;
+    font-size: clamp(2rem, 2.55vw, 2.75rem);
+    line-height: 1.18;
+    letter-spacing: -0.028em;
+  }
+
+  .testimonial-stage .testimonial-person {
+    margin-top: 26px;
+  }
+
+  .testimonial-controls {
+    margin-top: 30px;
+  }
+}
+
+@media (min-width: 1500px) {
+  .testimonials-v2-heading h2 {
+    font-size: 4.25rem;
+  }
+
+  .testimonial-stage blockquote {
+    font-size: 2.7rem;
+  }
+}
+
+@media (max-width: 1023px) {
+  .hero-v2-float--top {
+    left: 14px;
+  }
+
+  .hero-v2-float--bottom {
+    right: 14px;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero-v2-float {
+    width: min(176px, calc(100% - 28px));
+    padding: 13px 14px;
+  }
+
+  .hero-v2-float--top {
+    left: 14px;
+    top: 12%;
+  }
+
+  .hero-v2-float--bottom {
+    right: 14px;
+    bottom: 7%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-v2-photo-card {
+    animation: none;
+    clip-path: none;
+  }
+}
