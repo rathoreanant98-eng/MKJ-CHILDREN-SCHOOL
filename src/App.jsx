@@ -3,6 +3,7 @@ import Hero from "./components/Hero";
 import AboutMission from "./components/AboutMission";
 import Academics from "./components/Academics";
 import CampusLife from "./components/CampusLife";
+import Testimonials from "./components/Testimonials";
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
         <AboutMission />
         <Academics />
         <CampusLife />
+        <Testimonials />
       </main>
     </div>
   );
