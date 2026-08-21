@@ -1,0 +1,218 @@
+.academics-section {
+  position: relative;
+  overflow: hidden;
+  padding: 92px 0;
+  background:
+    radial-gradient(circle at 8% 14%, rgba(232, 180, 79, 0.1), transparent 23%),
+    linear-gradient(180deg, #f8fafc 0%, #f2f6fb 100%);
+}
+
+.academics-section::after {
+  content: "";
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  right: -150px;
+  bottom: -140px;
+  border: 1px solid rgba(25, 81, 138, 0.09);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 44px rgba(25, 81, 138, 0.025),
+    0 0 0 88px rgba(25, 81, 138, 0.018);
+  pointer-events: none;
+}
+
+.academics-container {
+  position: relative;
+  z-index: 1;
+  width: min(100% - 32px, 1180px);
+  margin: 0 auto;
+}
+
+.academics-heading {
+  max-width: 760px;
+  margin-bottom: 42px;
+}
+
+.section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 16px;
+  color: var(--navy-700);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.section-kicker::before {
+  content: "";
+  width: 24px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--gold-500);
+}
+
+.academics-heading h2 {
+  max-width: 750px;
+  margin: 0;
+  color: var(--navy-950);
+  font-size: clamp(2rem, 8vw, 3.6rem);
+  font-weight: 820;
+  letter-spacing: -0.045em;
+  line-height: 1.04;
+  text-wrap: balance;
+}
+
+.academics-heading p {
+  max-width: 680px;
+  margin: 20px 0 0;
+  color: var(--muted);
+  font-size: clamp(0.98rem, 3.6vw, 1.08rem);
+  line-height: 1.75;
+}
+
+.program-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.program-card {
+  position: relative;
+  min-height: 250px;
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: hidden;
+  border: 1px solid rgba(16, 35, 62, 0.09);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 12px 32px rgba(7, 24, 47, 0.055);
+  transition:
+    box-shadow 220ms ease,
+    border-color 220ms ease;
+}
+
+.program-card:hover {
+  border-color: rgba(25, 81, 138, 0.16);
+  box-shadow: 0 22px 48px rgba(7, 24, 47, 0.11);
+}
+
+.program-icon {
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border: 1px solid rgba(25, 81, 138, 0.1);
+  border-radius: 17px 17px 17px 6px;
+  color: var(--navy-700);
+  background: linear-gradient(145deg, #f8fbff, #edf4fb);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.program-card:nth-child(2n) .program-icon,
+.program-card:nth-child(5) .program-icon {
+  color: #916817;
+  background: linear-gradient(145deg, #fffaf0, #fff3d6);
+  border-color: rgba(214, 157, 49, 0.16);
+}
+
+.program-card-copy {
+  margin-top: 24px;
+}
+
+.program-card h3 {
+  margin: 0;
+  color: var(--navy-950);
+  font-size: clamp(1.24rem, 4.8vw, 1.46rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.program-card p {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.68;
+}
+
+.program-card-accent {
+  width: 36px;
+  height: 3px;
+  margin-top: auto;
+  padding-top: 24px;
+  border-bottom: 3px solid var(--gold-500);
+}
+
+@media (min-width: 600px) {
+  .academics-section {
+    padding: 108px 0;
+  }
+
+  .academics-container {
+    width: min(100% - 48px, 1180px);
+  }
+
+  .program-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .program-card {
+    min-height: 278px;
+    padding: 28px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .academics-section {
+    padding: 126px 0;
+  }
+
+  .academics-heading {
+    margin-bottom: 52px;
+  }
+
+  .program-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+  }
+
+  .program-card {
+    min-height: 300px;
+    padding: 30px;
+  }
+}
+
+@media (max-width: 390px) {
+  .academics-section {
+    padding: 82px 0;
+  }
+
+  .academics-container {
+    width: min(100% - 28px, 1180px);
+  }
+
+  .program-card {
+    min-height: 238px;
+    padding: 23px;
+    border-radius: 21px;
+  }
+
+  .program-icon {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .program-card {
+    transition: none;
+  }
+}
