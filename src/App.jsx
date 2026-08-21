@@ -4,6 +4,7 @@ import AboutMission from "./components/AboutMission";
 import Academics from "./components/Academics";
 import CampusLife from "./components/CampusLife";
 import Testimonials from "./components/Testimonials";
+import Admissions from "./components/Admissions";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
         <Academics />
         <CampusLife />
         <Testimonials />
+        <Admissions />
       </main>
     </div>
   );
