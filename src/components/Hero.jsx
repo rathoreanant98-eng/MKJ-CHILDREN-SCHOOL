@@ -1,8 +1,16 @@
-import { motion, useReducedMotion } from "motion/react";
+import { useRef } from "react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "motion/react";
 import "../visual-enhancements.css";
 
 const heroPhoto =
-  "https://images.unsplash.com/photo-1719159381916-062fa9f435a6?auto=format&fit=crop&w=1600&q=82";
+  "https://images.unsplash.com/photo-1719159381916-062fa9f435a6?auto=format&fit=crop&w=1800&q=86";
+
+const heroDetails = ["Jodhpur", "Upper Primary", "Family partnership"];
 
 function ArrowIcon() {
   return (
@@ -19,156 +27,246 @@ function ArrowIcon() {
   );
 }
 
-const trustItems = [
-  { value: "Small", label: "class communities" },
-  { value: "Caring", label: "teacher guidance" },
-  { value: "Whole-child", label: "learning approach" },
-];
-
 export default function Hero() {
+  const sectionRef = useRef(null);
   const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
 
-  const entrance = (delay = 0) => ({
-    initial: reduceMotion ? false : { opacity: 0, y: 34 },
+  const imageY = useTransform(scrollYProgress, [0, 1], [0, 72]);
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.07]);
+  const accentY = useTransform(scrollYProgress, [0, 1], [0, -38]);
+
+  const reveal = (delay = 0) => ({
+    initial: reduceMotion ? false : { opacity: 0, y: 28 },
     animate: { opacity: 1, y: 0 },
     transition: {
       duration: reduceMotion ? 0 : 0.72,
       delay: reduceMotion ? 0 : delay,
-      ease: "easeOut",
+      ease: [0.22, 1, 0.36, 1],
     },
   });
 
   return (
-    <section id="top" className="hero-section" aria-labelledby="hero-title">
-      <div className="hero-ambient hero-ambient-one" aria-hidden="true" />
-      <div className="hero-ambient hero-ambient-two" aria-hidden="true" />
-
+    <section
+      ref={sectionRef}
+      id="top"
+      className="hero-section hero-v2"
+      aria-labelledby="hero-title"
+    >
       <motion.div
-        className="hero-orbit hero-orbit-one"
+        className="hero-v2-shape hero-v2-shape--coral"
         aria-hidden="true"
-        animate={reduceMotion ? undefined : { y: [0, -16, 0], rotate: [0, 4, 0] }}
+        style={reduceMotion ? undefined : { y: accentY }}
+      />
+      <motion.div
+        className="hero-v2-shape hero-v2-shape--mint"
+        aria-hidden="true"
+        animate={reduceMotion ? undefined : { y: [0, -12, 0], rotate: [4, 8, 4] }}
         transition={
           reduceMotion
             ? undefined
-            : { duration: 8.5, repeat: Infinity, ease: "easeInOut" }
+            : { duration: 8, repeat: Infinity, ease: "easeInOut" }
         }
       />
       <motion.div
-        className="hero-orbit hero-orbit-two"
+        className="hero-v2-shape hero-v2-shape--blue"
         aria-hidden="true"
-        animate={reduceMotion ? undefined : { y: [0, 14, 0], x: [0, -10, 0] }}
+        animate={reduceMotion ? undefined : { scale: [1, 1.06, 1] }}
         transition={
           reduceMotion
             ? undefined
-            : { duration: 10.5, repeat: Infinity, ease: "easeInOut", delay: 0.8 }
+            : { duration: 7, repeat: Infinity, ease: "easeInOut" }
         }
       />
 
-      <div className="hero-container">
-        <div className="hero-copy">
-          <motion.div className="hero-eyebrow" {...entrance(0.06)}>
-            <span className="hero-eyebrow-dot" aria-hidden="true" />
-            Learning with purpose. Growing with care.
+      <div className="hero-container hero-v2-container">
+        <div className="hero-copy hero-v2-copy">
+          <motion.div className="hero-v2-eyebrow" {...reveal(0.05)}>
+            <span aria-hidden="true" />
+            MKJ Children Upper Primary School · Jodhpur
           </motion.div>
 
-          <motion.h1 id="hero-title" {...entrance(0.14)}>
-            A school where curious minds grow with confidence.
-          </motion.h1>
+          <h1 id="hero-title" className="hero-v2-title">
+            <span className="hero-v2-line-mask">
+              <motion.span
+                className="hero-v2-line"
+                initial={reduceMotion ? false : { y: "110%", opacity: 0 }}
+                animate={{ y: "0%", opacity: 1 }}
+                transition={{
+                  duration: reduceMotion ? 0 : 0.78,
+                  delay: reduceMotion ? 0 : 0.12,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+              >
+                Curious today.
+              </motion.span>
+            </span>
+            <span className="hero-v2-line-mask">
+              <motion.span
+                className="hero-v2-line"
+                initial={reduceMotion ? false : { y: "110%", opacity: 0 }}
+                animate={{ y: "0%", opacity: 1 }}
+                transition={{
+                  duration: reduceMotion ? 0 : 0.82,
+                  delay: reduceMotion ? 0 : 0.22,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+              >
+                Confident <em>tomorrow.</em>
+              </motion.span>
+            </span>
+          </h1>
 
-          <motion.p className="hero-supporting-copy" {...entrance(0.26)}>
-            MKJ Children Upper Primary School brings thoughtful teaching, strong foundations, and a genuinely caring community together so every child can learn, belong, and thrive.
+          <motion.p className="hero-supporting-copy hero-v2-support" {...reveal(0.34)}>
+            A warm learning community where strong foundations, thoughtful teaching,
+            creativity, and care help every child grow into a capable learner and a
+            confident young person.
           </motion.p>
 
-          <motion.div className="hero-actions" {...entrance(0.38)}>
+          <motion.div className="hero-actions hero-v2-actions" {...reveal(0.44)}>
             <motion.a
-              className="hero-primary-cta"
+              className="hero-v2-primary"
               href="#admissions"
-              whileHover={reduceMotion ? undefined : { scale: 1.05, y: -2 }}
+              whileHover={reduceMotion ? undefined : { y: -4, scale: 1.025 }}
               whileTap={reduceMotion ? undefined : { scale: 0.97 }}
-              transition={{ duration: 0.18 }}
             >
-              Explore Admissions
+              Plan a Visit
+              <motion.span
+                aria-hidden="true"
+                whileHover={reduceMotion ? undefined : { x: 4 }}
+              >
+                <ArrowIcon />
+              </motion.span>
+            </motion.a>
+
+            <motion.a
+              className="hero-v2-secondary"
+              href="#academics"
+              whileHover={reduceMotion ? undefined : { x: 4 }}
+            >
+              Explore learning
               <ArrowIcon />
             </motion.a>
           </motion.div>
 
-          <motion.div className="hero-trust" {...entrance(0.5)}>
-            {trustItems.map((item, index) => (
-              <motion.div
-                className="hero-trust-item"
-                key={item.label}
-                initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+          <motion.div className="hero-v2-details" {...reveal(0.54)}>
+            {heroDetails.map((detail, index) => (
+              <motion.span
+                key={detail}
+                initial={reduceMotion ? false : { opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
                   duration: reduceMotion ? 0 : 0.5,
-                  delay: reduceMotion ? 0 : 0.5 + index * 0.1,
+                  delay: reduceMotion ? 0 : 0.56 + index * 0.08,
                   ease: "easeOut",
                 }}
               >
-                <strong>{item.value}</strong>
-                <span>{item.label}</span>
-              </motion.div>
+                {detail}
+              </motion.span>
             ))}
           </motion.div>
         </div>
 
         <motion.div
-          className="hero-visual hero-visual--photo"
-          initial={reduceMotion ? false : { opacity: 0, scale: 0.88, x: 52, rotate: 2.5 }}
-          animate={{ opacity: 1, scale: 1, x: 0, rotate: 0 }}
-          transition={{ duration: reduceMotion ? 0 : 0.9, delay: reduceMotion ? 0 : 0.22, ease: "easeOut" }}
+          className="hero-v2-visual"
+          initial={
+            reduceMotion
+              ? false
+              : {
+                  opacity: 0,
+                  x: 70,
+                  scale: 0.96,
+                  clipPath: "inset(0 0 100% 0 round 46px)",
+                }
+          }
+          animate={{
+            opacity: 1,
+            x: 0,
+            scale: 1,
+            clipPath: "inset(0 0 0% 0 round 46px)",
+          }}
+          transition={{
+            duration: reduceMotion ? 0 : 1.05,
+            delay: reduceMotion ? 0 : 0.18,
+            ease: [0.22, 1, 0.36, 1],
+          }}
         >
-          <div className="hero-visual-halo" aria-hidden="true" />
-
-          <figure className="hero-photo-card">
+          <figure className="hero-v2-photo-card">
             <motion.img
-              className="hero-photo"
               src={heroPhoto}
-              alt="Temporary stock photograph of students learning in a classroom"
+              alt="Temporary preview photograph of children learning together in a classroom"
+              className="hero-v2-photo"
               loading="eager"
               fetchPriority="high"
               decoding="async"
-              initial={reduceMotion ? false : { scale: 1.12 }}
-              animate={reduceMotion ? { scale: 1 } : { scale: [1.04, 1.085, 1.04] }}
-              transition={
+              style={
                 reduceMotion
-                  ? { duration: 0 }
-                  : { scale: { duration: 12, repeat: Infinity, ease: "easeInOut" } }
+                  ? undefined
+                  : { y: imageY, scale: imageScale }
               }
             />
-            <div className="hero-photo-overlay" aria-hidden="true" />
-            <span className="hero-photo-badge">Preview photography</span>
-            <figcaption className="hero-photo-caption">
-              <span>Learning in action</span>
-              <strong>Thoughtful spaces. Confident learners.</strong>
-            </figcaption>
+            <div className="hero-v2-photo-wash" aria-hidden="true" />
+            <span className="hero-v2-photo-label">Temporary preview photo</span>
           </figure>
 
           <motion.div
-            className="hero-story-card hero-story-card--small hero-story-card--top"
-            animate={reduceMotion ? undefined : { y: [0, -11, 0], rotate: [0, 1, 0] }}
-            transition={reduceMotion ? undefined : { duration: 5.8, repeat: Infinity, ease: "easeInOut" }}
+            className="hero-v2-float hero-v2-float--top"
+            initial={reduceMotion ? false : { opacity: 0, y: 24, rotate: -4 }}
+            animate={{ opacity: 1, y: 0, rotate: -2 }}
+            transition={{
+              duration: reduceMotion ? 0 : 0.7,
+              delay: reduceMotion ? 0 : 0.72,
+              ease: "easeOut",
+            }}
+            whileHover={reduceMotion ? undefined : { y: -5, rotate: 0 }}
           >
-            <span className="hero-card-kicker">Every day</span>
-            <strong>Wonder → Confidence</strong>
+            <span>School life</span>
+            <strong>Learn · Grow · Belong</strong>
           </motion.div>
 
           <motion.div
-            className="hero-story-card hero-story-card--small hero-story-card--bottom"
-            animate={reduceMotion ? undefined : { y: [0, 10, 0], rotate: [0, -1, 0] }}
-            transition={
+            className="hero-v2-float hero-v2-float--bottom"
+            initial={reduceMotion ? false : { opacity: 0, y: 24, rotate: 4 }}
+            animate={{ opacity: 1, y: 0, rotate: 2 }}
+            transition={{
+              duration: reduceMotion ? 0 : 0.7,
+              delay: reduceMotion ? 0 : 0.84,
+              ease: "easeOut",
+            }}
+            animate={
               reduceMotion
-                ? undefined
-                : { duration: 6.8, repeat: Infinity, ease: "easeInOut", delay: 0.7 }
+                ? { opacity: 1, y: 0, rotate: 2 }
+                : { opacity: 1, y: [0, -7, 0], rotate: [2, 1, 2] }
             }
           >
-            <span className="hero-card-kicker">Our promise</span>
-            <strong>Strong roots. Bright futures.</strong>
+            <span>Our approach</span>
+            <strong>Challenge with care.</strong>
           </motion.div>
         </motion.div>
       </div>
 
-      <div className="hero-bottom-wave" aria-hidden="true" />
+      <motion.a
+        className="hero-v2-scroll"
+        href="#about"
+        aria-label="Scroll to our mission"
+        initial={reduceMotion ? false : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: reduceMotion ? 0 : 1.05, duration: 0.5 }}
+      >
+        <span>Discover MKJ</span>
+        <motion.i
+          aria-hidden="true"
+          animate={reduceMotion ? undefined : { scaleY: [0.45, 1, 0.45] }}
+          transition={
+            reduceMotion
+              ? undefined
+              : { duration: 1.7, repeat: Infinity, ease: "easeInOut" }
+          }
+        />
+      </motion.a>
     </section>
   );
 }
