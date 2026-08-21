@@ -83,13 +83,13 @@ export default function Navbar() {
       transition={{ duration: reduceMotion ? 0 : 0.45, ease: "easeOut" }}
     >
       <div className="nav-container">
-        <a className="brand" href="#top" aria-label="MKJ Children School home" onClick={closeMenu}>
+        <a className="brand" href="#top" aria-label="MKJ Children Upper Primary School home" onClick={closeMenu}>
           <span className="brand-mark" aria-hidden="true">
             <span className="brand-mark-inner">MKJ</span>
           </span>
           <span className="brand-copy">
-            <strong>MKJ Children School</strong>
-            <span>Educational Institution</span>
+            <strong>MKJ Children</strong>
+            <span>Upper Primary School</span>
           </span>
         </a>
 

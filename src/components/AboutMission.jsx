@@ -115,7 +115,7 @@ export default function AboutMission() {
           </motion.h2>
 
           <motion.p className="mission-lead" {...entrance(0.16)}>
-            At MKJ Children School, education is more than completing a lesson. We create a caring environment where children can build strong foundations, stay curious, learn from mistakes, and discover what they are capable of becoming.
+            At MKJ Children Upper Primary School, education is more than completing a lesson. We create a caring environment where children can build strong foundations, stay curious, learn from mistakes, and discover what they are capable of becoming.
           </motion.p>
 
           <motion.p className="mission-secondary" {...entrance(0.24)}>

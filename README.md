@@ -1,6 +1,6 @@
-# MKJ Children School
+# MKJ Children Upper Primary School
 
-Production-oriented React + Vite website for MKJ Children School.
+Production-oriented React + Vite website for MKJ Children Upper Primary School, Jodhpur, Rajasthan.
 
 ## Homepage status
 
@@ -35,6 +35,12 @@ No UI framework or icon dependency is required.
 - Production metadata and favicon
 - GitHub Actions production-build verification
 
+## Verified school contact details
+
+- Address: 35, Polo 1st, Ship House, Near Paota, Jodhpur, Rajasthan 342006
+- Phone: +91 8104567540 / +91 7737724255
+- Email: mkjchildrenschool@gmail.com
+
 ## Local development
 
 Use Node.js 20.19+ or 22.12+.
@@ -67,10 +73,9 @@ In Hostinger hPanel, add/deploy a web app, connect GitHub, select this repositor
 
 ## Before public launch
 
-Replace the current preview content with verified school information:
+The school contact details are now verified. Remaining launch items:
 
 - Official school logo/brand assets
-- Real address, phone number, and email
 - Official admissions/application URL or enquiry workflow
 - Approved parent/student testimonials
 - Authentic MKJ campus photography
@@ -78,4 +83,4 @@ Replace the current preview content with verified school information:
 - Official social-media URLs
 - Privacy-policy URL/content
 
-Do not publish placeholder contact details or sample testimonials as final school information.
+Do not publish sample testimonials or unverified institutional claims as final school information.

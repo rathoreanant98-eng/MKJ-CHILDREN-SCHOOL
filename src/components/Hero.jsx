@@ -72,7 +72,7 @@ export default function Hero() {
           </motion.h1>
 
           <motion.p className="hero-supporting-copy" {...entrance(0.28)}>
-            MKJ Children School brings thoughtful teaching, strong foundations, and a genuinely caring community together so every child can learn, belong, and thrive.
+            MKJ Children Upper Primary School brings thoughtful teaching, strong foundations, and a genuinely caring community together so every child can learn, belong, and thrive.
           </motion.p>
 
           <motion.div className="hero-actions" {...entrance(0.4)}>

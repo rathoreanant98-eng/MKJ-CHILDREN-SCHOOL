@@ -58,10 +58,10 @@ export default function Footer() {
           viewport={{ once: true, amount: 0.2 }}
         >
           <div className="footer-brand-column">
-            <a className="footer-brand" href="#top" aria-label="MKJ Children School home">
+            <a className="footer-brand" href="#top" aria-label="MKJ Children Upper Primary School home">
               <span className="footer-brand-mark" aria-hidden="true">MKJ</span>
               <span className="footer-brand-copy">
-                <strong>MKJ Children School</strong>
+                <strong>MKJ Children Upper Primary School</strong>
                 <span>Learn · Grow · Belong</span>
               </span>
             </a>
@@ -112,15 +112,18 @@ export default function Footer() {
             <div className="footer-contact-list">
               <div className="footer-contact-item">
                 <span className="footer-contact-label">Address</span>
-                <span>School address — to be confirmed</span>
+                <span>35, Polo 1st, Ship House, Near Paota, Jodhpur, Rajasthan 342006</span>
               </div>
               <div className="footer-contact-item">
                 <span className="footer-contact-label">Phone</span>
-                <span>Phone number — to be confirmed</span>
+                <span className="footer-contact-actions">
+                  <a href="tel:+918104567540">+91 8104567540</a>
+                  <a href="tel:+917737724255">+91 7737724255</a>
+                </span>
               </div>
               <div className="footer-contact-item">
                 <span className="footer-contact-label">Email</span>
-                <span>Email address — to be confirmed</span>
+                <a href="mailto:mkjchildrenschool@gmail.com">mkjchildrenschool@gmail.com</a>
               </div>
             </div>
           </div>
@@ -154,7 +157,7 @@ export default function Footer() {
         <div className="footer-divider" />
 
         <div className="footer-bottom">
-          <p>© 2026 MKJ Children School. All rights reserved.</p>
+          <p>© 2026 MKJ Children Upper Primary School. All rights reserved.</p>
           <div className="footer-bottom-links" aria-label="Policy links">
             <span>Privacy policy — to be added</span>
             <a href="#top">Back to top ↑</a>

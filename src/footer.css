@@ -169,6 +169,26 @@
   line-height: 1.55;
 }
 
+
+.footer-contact-item a {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: underline;
+  text-decoration-color: rgba(232, 180, 79, 0.55);
+  text-underline-offset: 3px;
+  transition: color 180ms ease, text-decoration-color 180ms ease;
+}
+
+.footer-contact-item a:hover,
+.footer-contact-item a:focus-visible {
+  color: #fff;
+  text-decoration-color: var(--gold-500);
+}
+
+.footer-contact-actions {
+  display: grid;
+  gap: 3px;
+}
+
 .footer-contact-label {
   color: rgba(255, 255, 255, 0.92);
   font-size: 0.77rem;
