@@ -1,0 +1,4 @@
+# Preview deployment: indexing is disabled with the page-level robots meta tag.
+# Crawlers are allowed to read the page so they can see the noindex directive.
+User-agent: *
+Disallow:
