@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "verify": "node scripts/verify-source.mjs",
     "build": "vite build",
     "preview": "vite preview"
   },
