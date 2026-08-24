@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   AnimatePresence,
   motion,
@@ -39,6 +39,8 @@ function ArrowIcon() {
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [pastHero, setPastHero] = useState(false);
+  const menuRef = useRef(null);
+  const toggleRef = useRef(null);
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll();
 
@@ -70,6 +72,41 @@ export default function Navbar() {
     return () => {
       document.body.style.overflow = "";
     };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    if (!menuOpen) return undefined;
+
+    const menu = menuRef.current;
+    const focusableSelector =
+      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    const focusable = menu ? Array.from(menu.querySelectorAll(focusableSelector)) : [];
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    first?.focus();
+
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setMenuOpen(false);
+        window.requestAnimationFrame(() => toggleRef.current?.focus());
+        return;
+      }
+
+      if (event.key !== "Tab" || focusable.length === 0) return;
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
+      }
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
   }, [menuOpen]);
 
   const closeMenu = () => setMenuOpen(false);
@@ -127,6 +164,7 @@ export default function Navbar() {
           </motion.a>
 
           <motion.button
+            ref={toggleRef}
             className="menu-toggle"
             type="button"
             aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
@@ -143,8 +181,12 @@ export default function Navbar() {
       <AnimatePresence initial={false}>
         {menuOpen && (
           <motion.div
+            ref={menuRef}
             id="mobile-navigation"
             className="mobile-menu-wrap"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site navigation"
             initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: -18, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -12, scale: 0.985 }}

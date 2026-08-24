@@ -52,14 +52,6 @@ const programs = [
   },
 ];
 
-function ArrowIcon() {
-  return (
-    <svg viewBox="0 0 20 20" aria-hidden="true">
-      <path d="M4 10h11M11 6l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 export default function Academics() {
   const sectionRef = useRef(null);
   const reduceMotion = useReducedMotion();
@@ -94,7 +86,7 @@ export default function Academics() {
               <h2 id="academics-title">Learning has <em>many directions.</em></h2>
             </div>
             <p>
-              Children need strong foundations, but they also need space to explore. Our learning areas are designed to move between knowledge, inquiry, creativity, communication, and wellbeing.
+              Children need strong foundations, but they also need space to explore. These learning themes illustrate the balanced experience we are shaping around knowledge, inquiry, creativity, communication, and wellbeing.
             </p>
           </motion.div>
 
@@ -131,14 +123,6 @@ export default function Academics() {
                     <h3>{program.title}</h3>
                     <p>{program.description}</p>
                   </div>
-
-                  <motion.div
-                    className="program-arrow"
-                    aria-hidden="true"
-                    whileHover={reduceMotion ? undefined : { x: 5 }}
-                  >
-                    <ArrowIcon />
-                  </motion.div>
                 </motion.article>
               ))}
             </motion.div>
