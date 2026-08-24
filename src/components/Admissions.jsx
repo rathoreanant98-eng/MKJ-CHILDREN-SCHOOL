@@ -28,6 +28,9 @@ const steps = [
   },
 ];
 
+const directionsUrl =
+  "https://www.google.com/maps/search/?api=1&query=35%2C%20Polo%201st%2C%20Ship%20House%2C%20Near%20Paota%2C%20Jodhpur%2C%20Rajasthan%20342006";
+
 function ArrowIcon() {
   return (
     <svg viewBox="0 0 20 20" aria-hidden="true">
@@ -44,6 +47,31 @@ export default function Admissions() {
     offset: ["start end", "end start"],
   });
   const journeyProgress = useTransform(scrollYProgress, [0.12, 0.72], [0, 1]);
+
+  const handleEnquirySubmit = (event) => {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    const parentName = String(form.get("parentName") || "").trim();
+    const phone = String(form.get("phone") || "").trim();
+    const classInterested = String(form.get("classInterested") || "").trim();
+    const message = String(form.get("message") || "").trim();
+
+    const subject = encodeURIComponent(
+      `Admission enquiry${classInterested ? ` — ${classInterested}` : ""}`,
+    );
+    const body = encodeURIComponent(
+      [
+        `Parent / guardian: ${parentName}`,
+        `Phone: ${phone}`,
+        `Class / level of interest: ${classInterested || "Not specified"}`,
+        "",
+        "Message:",
+        message || "I would like to know more about admissions and planning a school visit.",
+      ].join("\n"),
+    );
+
+    window.location.href = `mailto:mkjchildrenschool@gmail.com?subject=${subject}&body=${body}`;
+  };
 
   return (
     <section ref={sectionRef} id="admissions" className="admissions-section admissions-v2" aria-labelledby="admissions-title">
@@ -99,7 +127,7 @@ export default function Admissions() {
           className="admissions-cta-card admissions-v2-cta"
           initial={reduceMotion ? false : { opacity: 0, y: 40, scale: 0.97 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true, amount: 0.35 }}
+          viewport={{ once: true, amount: 0.28 }}
           transition={{ duration: reduceMotion ? 0 : 0.76, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className="admissions-cta-copy">
@@ -108,27 +136,71 @@ export default function Admissions() {
             <p>
               Speak with the school directly to plan a visit, ask about admissions, or understand what the next step should be for your child.
             </p>
+
+            <div className="admissions-v2-actions">
+              <motion.a
+                className="admissions-primary-cta"
+                href="tel:+918104567540"
+                whileHover={reduceMotion ? undefined : { y: -3, scale: 1.025 }}
+                whileTap={reduceMotion ? undefined : { scale: 0.97 }}
+              >
+                <span>Call the school</span>
+                <ArrowIcon />
+              </motion.a>
+              <motion.a
+                className="admissions-secondary-cta"
+                href="mailto:mkjchildrenschool@gmail.com"
+                whileHover={reduceMotion ? undefined : { x: 4 }}
+              >
+                Email MKJ
+                <ArrowIcon />
+              </motion.a>
+              <motion.a
+                className="admissions-secondary-cta"
+                href={directionsUrl}
+                target="_blank"
+                rel="noreferrer"
+                whileHover={reduceMotion ? undefined : { x: 4 }}
+              >
+                Get directions
+                <ArrowIcon />
+              </motion.a>
+            </div>
           </div>
 
-          <div className="admissions-v2-actions">
-            <motion.a
-              className="admissions-primary-cta"
-              href="tel:+918104567540"
-              whileHover={reduceMotion ? undefined : { y: -3, scale: 1.025 }}
-              whileTap={reduceMotion ? undefined : { scale: 0.97 }}
-            >
-              <span>Call the school</span>
+          <form className="admissions-enquiry-form" onSubmit={handleEnquirySubmit}>
+            <div className="admissions-form-heading">
+              <span>Quick enquiry</span>
+              <strong>Prepare an email to MKJ</strong>
+            </div>
+
+            <div className="admissions-form-grid">
+              <label>
+                <span>Parent / guardian name</span>
+                <input name="parentName" type="text" autoComplete="name" required />
+              </label>
+              <label>
+                <span>Phone number</span>
+                <input name="phone" type="tel" inputMode="tel" autoComplete="tel" required />
+              </label>
+              <label className="admissions-form-wide">
+                <span>Class / level you are asking about</span>
+                <input name="classInterested" type="text" autoComplete="off" />
+              </label>
+              <label className="admissions-form-wide">
+                <span>Message</span>
+                <textarea name="message" rows="4" />
+              </label>
+            </div>
+
+            <button className="admissions-form-submit" type="submit">
+              Prepare enquiry email
               <ArrowIcon />
-            </motion.a>
-            <motion.a
-              className="admissions-secondary-cta"
-              href="mailto:mkjchildrenschool@gmail.com"
-              whileHover={reduceMotion ? undefined : { x: 4 }}
-            >
-              Email MKJ
-              <ArrowIcon />
-            </motion.a>
-          </div>
+            </button>
+            <p className="admissions-form-note">
+              This website does not store these details. Submitting opens your device's email app with the enquiry pre-filled for MKJ.
+            </p>
+          </form>
         </motion.div>
       </div>
     </section>
