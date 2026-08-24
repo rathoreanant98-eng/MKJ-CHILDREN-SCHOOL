@@ -27,13 +27,8 @@ jobs:
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
-      - name: Check production placeholder regressions
-        shell: bash
-        run: |
-          if grep -R -n -E 'Sample family testimonial|Sample student testimonial|Privacy policy — to be added' src; then
-            echo 'Production placeholder text found.'
-            exit 1
-          fi
+      - name: Run source regression checks
+        run: npm run verify
 
       - name: Audit production dependencies
         run: npm audit --omit=dev --audit-level=high
