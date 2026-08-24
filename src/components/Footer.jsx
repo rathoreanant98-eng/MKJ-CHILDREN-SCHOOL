@@ -9,6 +9,9 @@ const quickLinks = [
   { label: "Contact", href: "#contact" },
 ];
 
+const directionsUrl =
+  "https://www.google.com/maps/search/?api=1&query=35%2C%20Polo%201st%2C%20Ship%20House%2C%20Near%20Paota%2C%20Jodhpur%2C%20Rajasthan%20342006";
+
 function ArrowIcon() {
   return (
     <svg viewBox="0 0 20 20" aria-hidden="true">
@@ -35,15 +38,27 @@ export default function Footer() {
           <p>
             Come to MKJ, meet the people, see the learning spaces, and decide how the school feels for your family.
           </p>
-          <motion.a
-            className="footer-v2-primary"
-            href="tel:+918104567540"
-            whileHover={reduceMotion ? undefined : { y: -3, scale: 1.02 }}
-            whileTap={reduceMotion ? undefined : { scale: 0.97 }}
-          >
-            Call to plan a visit
-            <ArrowIcon />
-          </motion.a>
+          <div className="footer-v2-actions">
+            <motion.a
+              className="footer-v2-primary"
+              href="tel:+918104567540"
+              whileHover={reduceMotion ? undefined : { y: -3, scale: 1.02 }}
+              whileTap={reduceMotion ? undefined : { scale: 0.97 }}
+            >
+              Call to plan a visit
+              <ArrowIcon />
+            </motion.a>
+            <motion.a
+              className="footer-v2-directions"
+              href={directionsUrl}
+              target="_blank"
+              rel="noreferrer"
+              whileHover={reduceMotion ? undefined : { x: 4 }}
+            >
+              Get directions
+              <ArrowIcon />
+            </motion.a>
+          </div>
         </motion.div>
 
         <div className="footer-v2-grid">
@@ -81,6 +96,9 @@ export default function Footer() {
               <div className="footer-contact-item">
                 <span className="footer-contact-label">Address</span>
                 <span>35, Polo 1st, Ship House, Near Paota, Jodhpur, Rajasthan 342006</span>
+                <a className="footer-contact-directions" href={directionsUrl} target="_blank" rel="noreferrer">
+                  Open in Google Maps ↗
+                </a>
               </div>
               <div className="footer-contact-item">
                 <span className="footer-contact-label">Phone</span>
@@ -102,7 +120,7 @@ export default function Footer() {
         <div className="footer-bottom">
           <p>© 2026 MKJ Children Upper Primary School. All rights reserved.</p>
           <div className="footer-bottom-links">
-            <span>Privacy policy — to be added</span>
+            <a href="/privacy.html">Privacy policy</a>
             <a href="#top">Back to top ↑</a>
           </div>
         </div>
