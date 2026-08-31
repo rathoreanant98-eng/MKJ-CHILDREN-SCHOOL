@@ -1,0 +1,382 @@
+.cinema-campus {
+  min-height: auto;
+  padding: 0;
+  background: var(--cinema-midnight);
+  color: white;
+}
+
+.cinema-campus-intro {
+  padding: clamp(136px, 12vw, 210px) 0 clamp(92px, 8vw, 142px);
+}
+
+.cinema-campus-intro .cinema-campus-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.72fr);
+  align-items: end;
+  gap: clamp(48px, 7vw, 110px);
+}
+
+.cinema-campus-intro .cinema-campus-heading h2 {
+  max-width: 10ch;
+  margin: 0;
+  font-family: "Fraunces", serif;
+  font-size: clamp(4rem, 6.9vw, 7.4rem);
+  font-weight: 600;
+  letter-spacing: -0.058em;
+  line-height: 0.91;
+  text-wrap: balance;
+}
+
+.cinema-campus-intro .cinema-campus-heading > p {
+  max-width: 540px;
+  margin: 0 0 0 auto;
+  color: rgba(255, 255, 255, 0.66);
+  font-size: clamp(1rem, 1.16vw, 1.24rem);
+  line-height: 1.72;
+}
+
+.cinema-campus-motion {
+  position: relative;
+  min-height: 360vh;
+}
+
+.cinema-campus-sticky {
+  position: sticky;
+  top: 0;
+  height: 100dvh;
+  min-height: 100dvh;
+  overflow: hidden;
+}
+
+.cinema-campus-stage-shell {
+  position: relative;
+  height: 100dvh;
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: clamp(16px, 2.1vh, 24px);
+  padding: clamp(92px, 11vh, 118px) 0 clamp(22px, 3vh, 34px);
+  box-sizing: border-box;
+}
+
+.cinema-campus-stage-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  min-height: 24px;
+}
+
+.cinema-campus-stage-head p,
+.cinema-campus-stage-head span {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.56);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.cinema-campus-stage-head span {
+  color: rgba(255, 255, 255, 0.38);
+  font-variant-numeric: tabular-nums;
+}
+
+.cinema-campus-stage-shell .cinema-campus-viewport {
+  position: relative;
+  width: 100vw;
+  min-height: 0;
+  margin: 0 0 0 calc((100vw - var(--cinema-container)) / -2);
+  overflow: hidden;
+}
+
+.cinema-campus-stage-shell .cinema-campus-track {
+  width: max-content;
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+  gap: clamp(20px, 2vw, 34px);
+  padding: 0 max(28px, calc((100vw - var(--cinema-container)) / 2));
+  box-sizing: border-box;
+  will-change: transform;
+}
+
+.cinema-campus-stage-shell .cinema-campus-frame {
+  width: min(70vw, 1040px);
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  align-self: stretch;
+}
+
+.cinema-campus-stage-shell .cinema-campus-frame:nth-child(2),
+.cinema-campus-stage-shell .cinema-campus-frame:nth-child(4) {
+  width: min(58vw, 850px);
+  padding-top: clamp(16px, 3vh, 30px);
+  box-sizing: border-box;
+}
+
+.cinema-campus-stage-shell .cinema-campus-media {
+  position: relative;
+  min-height: 0;
+  height: 100%;
+  max-height: 660px;
+  overflow: hidden;
+  border-radius: 22px;
+  background: #18324f;
+}
+
+.cinema-campus-stage-shell .cinema-campus-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.cinema-campus-stage-shell .cinema-campus-frame figcaption {
+  min-height: 88px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 0.62fr);
+  gap: 32px;
+  align-items: start;
+  padding-top: 18px;
+}
+
+.cinema-campus-stage-shell .cinema-campus-frame h3 {
+  font-size: clamp(1.8rem, 2.7vw, 3.2rem);
+}
+
+.cinema-campus-stage-shell .cinema-campus-frame p {
+  font-size: 0.9rem;
+}
+
+.cinema-campus-stage-shell .cinema-campus-footerline {
+  position: static;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.75fr);
+  gap: 46px;
+  align-items: end;
+}
+
+@media (min-width: 1024px) and (max-height: 860px) {
+  .cinema-campus-intro {
+    padding-top: 126px;
+    padding-bottom: 92px;
+  }
+
+  .cinema-campus-intro .cinema-campus-heading h2 {
+    font-size: clamp(3.7rem, 5.8vw, 6.5rem);
+  }
+
+  .cinema-campus-stage-shell {
+    gap: 14px;
+    padding-top: 92px;
+    padding-bottom: 18px;
+  }
+
+  .cinema-campus-stage-shell .cinema-campus-frame figcaption {
+    min-height: 74px;
+    gap: 24px;
+    padding-top: 14px;
+  }
+
+  .cinema-campus-stage-shell .cinema-campus-frame h3 {
+    font-size: clamp(1.7rem, 2.35vw, 2.8rem);
+  }
+
+  .cinema-campus-stage-shell .cinema-campus-frame p {
+    margin-top: 2px;
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+
+  .cinema-campus-stage-shell .cinema-campus-footerline > p {
+    max-width: 430px;
+    font-size: 0.64rem;
+  }
+}
+
+@media (max-width: 1023px) {
+  .cinema-campus-intro {
+    padding: 120px 0 72px;
+  }
+
+  .cinema-campus-intro .cinema-campus-heading {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .cinema-campus-intro .cinema-campus-heading > p {
+    max-width: 620px;
+    margin-left: 0;
+  }
+
+  .cinema-campus-motion {
+    min-height: auto;
+  }
+
+  .cinema-campus-sticky {
+    position: relative;
+    top: auto;
+    height: auto;
+    min-height: auto;
+    overflow: hidden;
+  }
+
+  .cinema-campus-stage-shell {
+    height: auto;
+    min-height: auto;
+    display: block;
+    padding: 0 0 100px;
+  }
+
+  .cinema-campus-stage-head {
+    margin-bottom: 34px;
+  }
+
+  .cinema-campus-stage-head span {
+    display: none;
+  }
+
+  .cinema-campus-stage-shell .cinema-campus-viewport {
+    width: auto;
+    margin-left: 0;
+    overflow: visible;
+  }
+
+  .cinema-campus-stage-shell .cinema-campus-track {
+    width: auto;
+    height: auto;
+    display: grid;
+    gap: 54px;
+    padding: 0;
+    transform: none !important;
+  }
+
+  .cinema-campus-stage-shell .cinema-campus-frame,
+  .cinema-campus-stage-shell .cinema-campus-frame:nth-child(2),
+  .cinema-campus-stage-shell .cinema-campus-frame:nth-child(4) {
+    width: 100%;
+    height: auto;
+    padding-top: 0;
+    display: block;
+  }
+
+  .cinema-campus-stage-shell .cinema-campus-media {
+    height: min(62vw, 620px);
+    max-height: none;
+  }
+
+  .cinema-campus-stage-shell .cinema-campus-frame figcaption {
+    min-height: auto;
+    margin-top: 0;
+  }
+
+  .cinema-campus-stage-shell .cinema-campus-footerline {
+    grid-template-columns: 1fr;
+    margin-top: 58px;
+  }
+
+  .cinema-campus-stage-shell .cinema-campus-progress {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .cinema-campus-intro {
+    padding: 100px 0 58px;
+  }
+
+  .cinema-campus-intro .cinema-campus-heading h2 {
+    font-size: clamp(3rem, 13vw, 4.8rem);
+  }
+
+  .cinema-campus-stage-head {
+    margin-bottom: 26px;
+  }
+
+  .cinema-campus-stage-shell {
+    padding-bottom: 86px;
+  }
+
+  .cinema-campus-stage-shell .cinema-campus-track {
+    gap: 42px;
+  }
+
+  .cinema-campus-stage-shell .cinema-campus-media {
+    height: 68vw;
+    border-radius: 18px;
+  }
+
+  .cinema-campus-stage-shell .cinema-campus-frame figcaption {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding-top: 16px;
+  }
+
+  .cinema-campus-stage-shell .cinema-campus-frame h3 {
+    font-size: clamp(2rem, 9vw, 3rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinema-campus-motion {
+    min-height: auto;
+  }
+
+  .cinema-campus-sticky {
+    position: relative;
+    height: auto;
+    min-height: auto;
+  }
+
+  .cinema-campus-stage-shell {
+    height: auto;
+    min-height: auto;
+    display: block;
+    padding-bottom: 96px;
+  }
+
+  .cinema-campus-stage-head {
+    margin-bottom: 32px;
+  }
+
+  .cinema-campus-stage-shell .cinema-campus-viewport {
+    width: auto;
+    margin-left: 0;
+    overflow: visible;
+  }
+
+  .cinema-campus-stage-shell .cinema-campus-track {
+    width: auto;
+    height: auto;
+    display: grid;
+    gap: 52px;
+    padding: 0;
+    transform: none !important;
+  }
+
+  .cinema-campus-stage-shell .cinema-campus-frame,
+  .cinema-campus-stage-shell .cinema-campus-frame:nth-child(2),
+  .cinema-campus-stage-shell .cinema-campus-frame:nth-child(4) {
+    width: 100%;
+    height: auto;
+    padding-top: 0;
+    display: block;
+  }
+
+  .cinema-campus-stage-shell .cinema-campus-media {
+    height: min(62vw, 620px);
+    max-height: none;
+  }
+
+  .cinema-campus-stage-shell .cinema-campus-footerline {
+    position: static;
+    grid-template-columns: 1fr;
+    margin-top: 56px;
+  }
+}

@@ -42,17 +42,7 @@ const campusMoments = [
 
 function CampusFrame({ moment, index, reduceMotion }) {
   return (
-    <motion.figure
-      className={`cinema-campus-frame cinema-campus-frame--${index + 1}`}
-      initial={reduceMotion ? false : { opacity: 0, y: 28, scale: 0.97 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, amount: 0.18 }}
-      transition={{
-        duration: reduceMotion ? 0 : 0.62,
-        delay: reduceMotion ? 0 : Math.min(index * 0.045, 0.16),
-        ease: [0.23, 1, 0.32, 1],
-      }}
-    >
+    <figure className={`cinema-campus-frame cinema-campus-frame--${index + 1}`}>
       <div className="cinema-campus-media">
         <motion.img
           src={moment.image}
@@ -60,7 +50,10 @@ function CampusFrame({ moment, index, reduceMotion }) {
           loading="lazy"
           decoding="async"
           whileHover={reduceMotion ? undefined : { scale: 1.035 }}
-          transition={{ duration: reduceMotion ? 0 : 0.42, ease: [0.23, 1, 0.32, 1] }}
+          transition={{
+            duration: reduceMotion ? 0 : 0.24,
+            ease: [0.23, 1, 0.32, 1],
+          }}
         />
         <div className="cinema-campus-shade" aria-hidden="true" />
       </div>
@@ -68,25 +61,27 @@ function CampusFrame({ moment, index, reduceMotion }) {
         <h3>{moment.title}</h3>
         <p>{moment.caption}</p>
       </figcaption>
-    </motion.figure>
+    </figure>
   );
 }
 
 export default function CampusLife() {
-  const sectionRef = useRef(null);
+  const motionRef = useRef(null);
   const reduceMotion = useReducedMotion();
   const [isDesktop, setIsDesktop] = useState(false);
+
   const { scrollYProgress } = useScroll({
-    target: sectionRef,
+    target: motionRef,
     offset: ["start start", "end end"],
   });
+
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 105,
     damping: 28,
     mass: 0.24,
   });
+
   const trackX = useTransform(smoothProgress, [0.06, 0.94], ["0%", "-73%"]);
-  const headingY = useTransform(smoothProgress, [0, 1], [0, -42]);
 
   useEffect(() => {
     const query = window.matchMedia("(min-width: 1024px)");
@@ -98,54 +93,63 @@ export default function CampusLife() {
 
   return (
     <section
-      ref={sectionRef}
       className="pg-campus cinema-campus"
       id="campus-life"
       aria-labelledby="campus-title"
     >
-      <div className="cinema-campus-sticky">
-        <div className="pg-section-shell cinema-campus-shell">
-          <motion.div
-            className="cinema-campus-heading"
-            style={!reduceMotion && isDesktop ? { y: headingY } : undefined}
-          >
-            <motion.div
-              initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: reduceMotion ? 0 : 0.58, ease: [0.23, 1, 0.32, 1] }}
-            >
-              <p className="pg-kicker">Campus life</p>
-              <h2 id="campus-title">A school day should have texture.</h2>
-            </motion.div>
-            <p>
-              Focused learning, creative energy, movement, friendship, and moments worth remembering.
-              School life is richer when children experience more than one kind of success.
-            </p>
-          </motion.div>
-
-          <div className="cinema-campus-viewport">
-            <motion.div
-              className="cinema-campus-track"
-              style={!reduceMotion && isDesktop ? { x: trackX } : undefined}
-            >
-              {campusMoments.map((moment, index) => (
-                <CampusFrame
-                  key={moment.title}
-                  moment={moment}
-                  index={index}
-                  reduceMotion={reduceMotion}
-                />
-              ))}
-            </motion.div>
+      <div className="pg-section-shell cinema-campus-intro">
+        <motion.div
+          className="cinema-campus-heading"
+          initial={reduceMotion ? false : { opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.32 }}
+          transition={{
+            duration: reduceMotion ? 0 : 0.62,
+            ease: [0.23, 1, 0.32, 1],
+          }}
+        >
+          <div>
+            <p className="pg-kicker">Campus life</p>
+            <h2 id="campus-title">A school day should have texture.</h2>
           </div>
+          <p>
+            Focused learning, creative energy, movement, friendship, and moments worth remembering.
+            School life is richer when children experience more than one kind of success.
+          </p>
+        </motion.div>
+      </div>
 
-          <div className="cinema-campus-footerline">
-            <p>
-              All images shown here are temporary previews and should be replaced with authentic MKJ campus photography before launch.
-            </p>
-            <div className="cinema-campus-progress" aria-hidden="true">
-              <motion.span style={{ scaleX: reduceMotion ? 1 : smoothProgress }} />
+      <div ref={motionRef} className="cinema-campus-motion">
+        <div className="cinema-campus-sticky">
+          <div className="pg-section-shell cinema-campus-stage-shell">
+            <div className="cinema-campus-stage-head">
+              <p>Scroll to move through the school day.</p>
+              <span aria-hidden="true">01 / 05</span>
+            </div>
+
+            <div className="cinema-campus-viewport">
+              <motion.div
+                className="cinema-campus-track"
+                style={!reduceMotion && isDesktop ? { x: trackX } : undefined}
+              >
+                {campusMoments.map((moment, index) => (
+                  <CampusFrame
+                    key={moment.title}
+                    moment={moment}
+                    index={index}
+                    reduceMotion={reduceMotion}
+                  />
+                ))}
+              </motion.div>
+            </div>
+
+            <div className="cinema-campus-footerline">
+              <p>
+                All images shown here are temporary previews and should be replaced with authentic MKJ campus photography before launch.
+              </p>
+              <div className="cinema-campus-progress" aria-hidden="true">
+                <motion.span style={{ scaleX: reduceMotion ? 1 : smoothProgress }} />
+              </div>
             </div>
           </div>
         </div>
