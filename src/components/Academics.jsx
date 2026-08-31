@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useRef } from "react";
 import {
-  AnimatePresence,
   motion,
   useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
 } from "motion/react";
 
 const programs = [
@@ -12,6 +14,10 @@ const programs = [
     description:
       "Purposeful learning that strengthens literacy, numeracy, independence, and the confidence to keep trying.",
     tone: "blue",
+    visualWord: "FOUNDATION",
+    image:
+      "https://images.unsplash.com/photo-1719159381916-062fa9f435a6?auto=format&fit=crop&w=1400&q=84",
+    alt: "Temporary preview photograph of children learning together in a classroom",
   },
   {
     eyebrow: "Everyday inquiry",
@@ -19,6 +25,7 @@ const programs = [
     description:
       "Strong academic foundations paired with discussion, collaboration, and questions that make children think beyond the page.",
     tone: "coral",
+    visualWord: "QUESTION",
   },
   {
     eyebrow: "Make and test",
@@ -26,6 +33,10 @@ const programs = [
     description:
       "Hands-on exploration through science, technology, mathematics, making, and real-world problem solving.",
     tone: "mint",
+    visualWord: "DISCOVER",
+    image:
+      "https://images.unsplash.com/photo-1759143101324-d375443f1955?auto=format&fit=crop&w=1400&q=84",
+    alt: "Temporary preview photograph of school children working together",
   },
   {
     eyebrow: "Find your voice",
@@ -33,6 +44,7 @@ const programs = [
     description:
       "Reading, writing, speaking, and listening experiences that help learners communicate with clarity and imagination.",
     tone: "lavender",
+    visualWord: "VOICE",
   },
   {
     eyebrow: "Create boldly",
@@ -40,6 +52,10 @@ const programs = [
     description:
       "Visual art, music, movement, and performance give children space to interpret, create, and share what matters to them.",
     tone: "saffron",
+    visualWord: "CREATE",
+    image:
+      "https://images.unsplash.com/photo-1771765812031-22653b4c70a6?auto=format&fit=crop&w=1400&q=84",
+    alt: "Temporary preview photograph of children creating artwork in a classroom",
   },
   {
     eyebrow: "Move together",
@@ -47,40 +63,105 @@ const programs = [
     description:
       "Movement, teamwork, healthy habits, and social-emotional growth support capable, resilient young people.",
     tone: "sky",
+    visualWord: "MOVE",
+    image:
+      "https://images.unsplash.com/photo-1566938089211-5821c49b3548?auto=format&fit=crop&w=1400&q=84",
+    alt: "Temporary preview photograph of children enjoying a school playground",
   },
 ];
 
 const inlinePhoto =
   "https://images.unsplash.com/photo-1771765812031-22653b4c70a6?auto=format&fit=crop&w=700&q=82";
 
-function PlusIcon({ open }) {
+function LearningCard({ program, index, reduceMotion }) {
+  const cardRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start 84%", "end 16%"],
+  });
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 30,
+    mass: 0.22,
+  });
+  const scale = useTransform(smoothProgress, [0, 0.42, 1], [0.985, 1, 0.955]);
+  const rotate = useTransform(
+    smoothProgress,
+    [0, 0.48, 1],
+    [index % 2 === 0 ? 1.2 : -1.2, 0, index % 2 === 0 ? -1.2 : 1.2],
+  );
+  const copyY = useTransform(smoothProgress, [0, 0.48, 1], [18, 0, -18]);
+  const mediaY = useTransform(smoothProgress, [0, 1], [-24, 24]);
+  const mediaScale = useTransform(smoothProgress, [0, 0.5, 1], [1.12, 1.04, 1.1]);
+
   return (
-    <span className={`pg-accordion-icon ${open ? "pg-accordion-icon--open" : ""}`} aria-hidden="true">
-      <i />
-      <i />
-    </span>
+    <motion.article
+      ref={cardRef}
+      className={`cinema-learning-card cinema-learning-card--${program.tone}`}
+      style={{
+        "--cinema-stack-index": index,
+        ...(reduceMotion ? {} : { scale, rotate }),
+      }}
+    >
+      <motion.div
+        className="cinema-learning-copy"
+        style={reduceMotion ? undefined : { y: copyY }}
+      >
+        <p>{program.eyebrow}</p>
+        <h3>{program.title}</h3>
+        <span className="cinema-learning-rule" aria-hidden="true" />
+        <p className="cinema-learning-description">{program.description}</p>
+      </motion.div>
+
+      <div className="cinema-learning-visual" aria-hidden={!program.image ? "true" : undefined}>
+        <div className="cinema-learning-word" aria-hidden="true">
+          {program.visualWord}
+        </div>
+        {program.image ? (
+          <div className="cinema-learning-photo-frame">
+            <motion.img
+              src={program.image}
+              alt={program.alt}
+              loading="lazy"
+              decoding="async"
+              style={reduceMotion ? undefined : { y: mediaY, scale: mediaScale }}
+            />
+            <div className="cinema-learning-photo-wash" aria-hidden="true" />
+          </div>
+        ) : (
+          <div className="cinema-learning-abstract" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+          </div>
+        )}
+      </div>
+    </motion.article>
   );
 }
 
 export default function Academics() {
-  const [activeIndex, setActiveIndex] = useState(0);
   const reduceMotion = useReducedMotion();
 
   return (
-    <section className="pg-academics" id="academics" aria-labelledby="academics-title">
-      <div className="pg-section-shell">
+    <section className="pg-academics cinema-academics" id="academics" aria-labelledby="academics-title">
+      <div className="pg-section-shell cinema-academics-shell">
         <motion.div
-          className="pg-academics-heading"
-          initial={reduceMotion ? false : { opacity: 0, y: 30 }}
+          className="pg-academics-heading cinema-academics-heading"
+          initial={reduceMotion ? false : { opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.25 }}
-          transition={{ duration: reduceMotion ? 0 : 0.64, ease: [0.23, 1, 0.32, 1] }}
+          transition={{ duration: reduceMotion ? 0 : 0.6, ease: [0.23, 1, 0.32, 1] }}
         >
           <div>
             <p className="pg-kicker">Learning journey</p>
             <h2 id="academics-title">
               Learning moves through
-              <span className="pg-inline-photo" aria-hidden="true" style={{ backgroundImage: `url(${inlinePhoto})` }} />
+              <span
+                className="pg-inline-photo cinema-inline-photo"
+                aria-hidden="true"
+                style={{ backgroundImage: `url(${inlinePhoto})` }}
+              />
               many directions.
             </h2>
           </div>
@@ -91,60 +172,23 @@ export default function Academics() {
           </p>
         </motion.div>
 
-        <div className="pg-learning-accordion" role="list" aria-label="Learning themes">
-          {programs.map((program, index) => {
-            const active = activeIndex === index;
-            return (
-              <motion.article
-                key={program.title}
-                className={`pg-learning-panel pg-learning-panel--${program.tone} ${active ? "pg-learning-panel--active" : ""}`}
-                layout={!reduceMotion}
-                role="listitem"
-                onMouseEnter={() => setActiveIndex(index)}
-                transition={{ layout: { duration: reduceMotion ? 0 : 0.42, ease: [0.32, 0.72, 0, 1] } }}
-              >
-                <button
-                  type="button"
-                  className="pg-learning-trigger"
-                  aria-expanded={active}
-                  aria-controls={`learning-panel-${index}`}
-                  onClick={() => setActiveIndex(index)}
-                  onFocus={() => setActiveIndex(index)}
-                >
-                  <span className="pg-learning-number">0{index + 1}</span>
-                  <span className="pg-learning-vertical-title">{program.title}</span>
-                  <PlusIcon open={active} />
-                </button>
-
-                <AnimatePresence initial={false} mode="wait">
-                  {active && (
-                    <motion.div
-                      id={`learning-panel-${index}`}
-                      className="pg-learning-content"
-                      key={program.title}
-                      initial={reduceMotion ? false : { opacity: 0, x: 18 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={reduceMotion ? { opacity: 0 } : { opacity: 0, x: -10 }}
-                      transition={{ duration: reduceMotion ? 0 : 0.28, ease: [0.23, 1, 0.32, 1] }}
-                    >
-                      <span>{program.eyebrow}</span>
-                      <h3>{program.title}</h3>
-                      <p>{program.description}</p>
-                      <div className="pg-learning-line" aria-hidden="true" />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.article>
-            );
-          })}
+        <div className="cinema-learning-stack" aria-label="Learning themes">
+          {programs.map((program, index) => (
+            <LearningCard
+              key={program.title}
+              program={program}
+              index={index}
+              reduceMotion={reduceMotion}
+            />
+          ))}
         </div>
 
         <motion.p
-          className="pg-academics-note"
-          initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+          className="pg-academics-note cinema-academics-note"
+          initial={reduceMotion ? false : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.7 }}
-          transition={{ duration: reduceMotion ? 0 : 0.5, ease: [0.23, 1, 0.32, 1] }}
+          transition={{ duration: reduceMotion ? 0 : 0.48, ease: [0.23, 1, 0.32, 1] }}
         >
           Exact classes, board, medium of instruction, subjects, and activity offerings should be added only after MKJ confirms them.
         </motion.p>
