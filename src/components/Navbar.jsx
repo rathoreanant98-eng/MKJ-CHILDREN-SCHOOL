@@ -7,11 +7,11 @@ import {
 } from "motion/react";
 
 const navItems = [
-  { label: "About", href: "#about", id: "about" },
-  { label: "Academics", href: "#academics", id: "academics" },
-  { label: "Campus Life", href: "#campus-life", id: "campus-life" },
-  { label: "Admissions", href: "#admissions", id: "admissions" },
-  { label: "Contact", href: "#contact", id: "contact" },
+  { label: "About", href: "#purpose-title", sectionId: "about" },
+  { label: "Academics", href: "#academics-title", sectionId: "academics" },
+  { label: "Campus Life", href: "#campus-title", sectionId: "campus-life" },
+  { label: "Admissions", href: "#admissions-title", sectionId: "admissions" },
+  { label: "Contact", href: "#contact-title", sectionId: "contact" },
 ];
 
 function ArrowIcon() {
@@ -55,7 +55,7 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    const sections = ["top", ...navItems.map((item) => item.id)]
+    const sections = ["top", ...navItems.map((item) => item.sectionId)]
       .map((id) => document.getElementById(id))
       .filter(Boolean);
 
@@ -141,10 +141,10 @@ export default function Navbar() {
 
         <nav className="pg-desktop-nav" aria-label="Primary navigation">
           {navItems.map((item) => {
-            const isActive = activeSection === item.id;
+            const isActive = activeSection === item.sectionId;
             return (
               <a
-                key={item.id}
+                key={item.sectionId}
                 className={`pg-nav-link ${isActive ? "pg-nav-link--active" : ""}`}
                 href={item.href}
                 aria-current={isActive ? "location" : undefined}
@@ -163,7 +163,7 @@ export default function Navbar() {
         <div className="pg-nav-actions">
           <motion.a
             className="pg-nav-cta"
-            href="#admissions"
+            href="#admissions-title"
             whileHover={reduceMotion ? undefined : { y: -2 }}
             whileTap={reduceMotion ? undefined : { scale: 0.97 }}
           >
@@ -209,7 +209,7 @@ export default function Navbar() {
               <div className="pg-mobile-nav-links">
                 {navItems.map((item, index) => (
                   <motion.a
-                    key={item.id}
+                    key={item.sectionId}
                     href={item.href}
                     onClick={closeMenu}
                     initial={reduceMotion ? false : { opacity: 0, y: 18 }}
