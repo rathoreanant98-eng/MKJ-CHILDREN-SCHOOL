@@ -6,65 +6,77 @@ import {
   useScroll,
 } from "motion/react";
 
-const navItems = ["About", "Academics", "Admissions", "Campus Life", "Contact"];
+const navItems = [
+  { label: "About", href: "#about", id: "about" },
+  { label: "Academics", href: "#academics", id: "academics" },
+  { label: "Campus Life", href: "#campus-life", id: "campus-life" },
+  { label: "Admissions", href: "#admissions", id: "admissions" },
+  { label: "Contact", href: "#contact", id: "contact" },
+];
 
-function MenuIcon({ open }) {
+function ArrowIcon() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      {open ? (
-        <>
-          <path d="M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-          <path d="M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-        </>
-      ) : (
-        <>
-          <path d="M4 7H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-          <path d="M4 12H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-          <path d="M4 17H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-        </>
-      )}
+    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path d="M4 10h11" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+      <path d="m11 6 4 4-4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
 
-function ArrowIcon() {
+function MenuIcon({ open }) {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M3.5 8H12.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-      <path d="M9 4.5L12.5 8L9 11.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
+    <span className={`pg-menu-icon ${open ? "pg-menu-icon--open" : ""}`} aria-hidden="true">
+      <i />
+      <i />
+    </span>
   );
 }
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [pastHero, setPastHero] = useState(false);
+  const [activeSection, setActiveSection] = useState("top");
   const menuRef = useRef(null);
   const toggleRef = useRef(null);
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll();
 
   useEffect(() => {
-    const onScroll = () => {
-      const hero = document.getElementById("top");
-      const headerOffset = 96;
+    const hero = document.getElementById("top");
+    if (!hero) return undefined;
 
-      if (hero) {
-        setPastHero(hero.getBoundingClientRect().bottom <= headerOffset);
-        return;
-      }
+    const observer = new IntersectionObserver(
+      ([entry]) => setPastHero(!entry.isIntersecting),
+      { rootMargin: "-92px 0px 0px 0px", threshold: 0.04 },
+    );
 
-      setPastHero(window.scrollY > Math.max(window.innerHeight * 0.72, 420));
-    };
+    observer.observe(hero);
+    return () => observer.disconnect();
+  }, []);
 
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+  useEffect(() => {
+    const sections = ["top", ...navItems.map((item) => item.id)]
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
 
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
+    if (!sections.length) return undefined;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visible?.target?.id) setActiveSection(visible.target.id);
+      },
+      {
+        rootMargin: "-24% 0px -60% 0px",
+        threshold: [0.08, 0.2, 0.45],
+      },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -113,65 +125,61 @@ export default function Navbar() {
 
   return (
     <motion.header
-      className={`site-header ${pastHero || menuOpen ? "site-header--solid" : ""}`}
-      initial={reduceMotion ? false : { y: -24, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{
-        duration: reduceMotion ? 0 : 0.62,
-        delay: reduceMotion ? 0 : 0.04,
-        ease: [0.22, 1, 0.36, 1],
-      }}
+      className={`pg-header ${pastHero || menuOpen ? "pg-header--solid" : ""}`}
+      initial={reduceMotion ? false : { opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: reduceMotion ? 0 : 0.55, ease: [0.23, 1, 0.32, 1] }}
     >
-      <div className="nav-container">
-        <a
-          className="brand"
-          href="#top"
-          aria-label="MKJ Children Upper Primary School home"
-          onClick={closeMenu}
-        >
-          <span className="brand-mark" aria-hidden="true">
-            <span className="brand-mark-inner">MKJ</span>
-          </span>
-          <span className="brand-copy">
+      <div className="pg-nav-shell">
+        <a className="pg-brand" href="#top" aria-label="MKJ Children Upper Primary School home" onClick={closeMenu}>
+          <span className="pg-brand-mark" aria-hidden="true">MKJ</span>
+          <span className="pg-brand-copy">
             <strong>MKJ Children</strong>
             <span>Upper Primary School</span>
           </span>
         </a>
 
-        <nav className="desktop-nav" aria-label="Primary navigation">
-          {navItems.map((item) => (
-            <motion.a
-              key={item}
-              className="nav-link"
-              href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
-              whileHover={reduceMotion ? undefined : { y: -2 }}
-              transition={{ duration: 0.18 }}
-            >
-              {item}
-            </motion.a>
-          ))}
+        <nav className="pg-desktop-nav" aria-label="Primary navigation">
+          {navItems.map((item) => {
+            const isActive = activeSection === item.id;
+            return (
+              <a
+                key={item.id}
+                className={`pg-nav-link ${isActive ? "pg-nav-link--active" : ""}`}
+                href={item.href}
+                aria-current={isActive ? "location" : undefined}
+              >
+                <span>{item.label}</span>
+                <motion.i
+                  aria-hidden="true"
+                  animate={{ scaleX: isActive ? 1 : 0 }}
+                  transition={{ duration: reduceMotion ? 0 : 0.22, ease: [0.23, 1, 0.32, 1] }}
+                />
+              </a>
+            );
+          })}
         </nav>
 
-        <div className="nav-actions">
+        <div className="pg-nav-actions">
           <motion.a
-            className="primary-nav-cta"
+            className="pg-nav-cta"
             href="#admissions"
-            whileHover={reduceMotion ? undefined : { scale: 1.035, y: -2 }}
+            whileHover={reduceMotion ? undefined : { y: -2 }}
             whileTap={reduceMotion ? undefined : { scale: 0.97 }}
           >
-            <span>Visit MKJ</span>
+            Plan a visit
             <ArrowIcon />
           </motion.a>
 
           <motion.button
             ref={toggleRef}
-            className="menu-toggle"
+            className="pg-menu-toggle"
             type="button"
             aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
             aria-expanded={menuOpen}
-            aria-controls="mobile-navigation"
+            aria-controls="pg-mobile-navigation"
             onClick={() => setMenuOpen((value) => !value)}
-            whileTap={reduceMotion ? undefined : { scale: 0.94 }}
+            whileTap={reduceMotion ? undefined : { scale: 0.95 }}
           >
             <MenuIcon open={menuOpen} />
           </motion.button>
@@ -182,63 +190,52 @@ export default function Navbar() {
         {menuOpen && (
           <motion.div
             ref={menuRef}
-            id="mobile-navigation"
-            className="mobile-menu-wrap"
+            id="pg-mobile-navigation"
+            className="pg-mobile-menu"
             role="dialog"
             aria-modal="true"
             aria-label="Site navigation"
-            initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: -18, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -12, scale: 0.985 }}
-            transition={{
-              duration: reduceMotion ? 0 : 0.32,
-              ease: [0.22, 1, 0.36, 1],
-            }}
+            initial={reduceMotion ? { opacity: 1 } : { opacity: 0, clipPath: "inset(0 0 100% 0 round 0 0 28px 28px)" }}
+            animate={{ opacity: 1, clipPath: "inset(0 0 0% 0 round 0 0 28px 28px)" }}
+            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, clipPath: "inset(0 0 100% 0 round 0 0 28px 28px)" }}
+            transition={{ duration: reduceMotion ? 0 : 0.38, ease: [0.32, 0.72, 0, 1] }}
           >
-            <nav className="mobile-nav" aria-label="Mobile navigation">
-              <div className="mobile-nav-intro">
-                <span>Explore MKJ</span>
-                <strong>Learning with purpose. Growing with care.</strong>
+            <nav className="pg-mobile-nav" aria-label="Mobile navigation">
+              <div className="pg-mobile-nav-heading">
+                <span>MKJ Children Upper Primary School</span>
+                <strong>Learn deeply. Belong fully. Grow bravely.</strong>
               </div>
 
-              {navItems.map((item, index) => (
-                <motion.a
-                  key={item}
-                  className="mobile-nav-link"
-                  href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
-                  onClick={closeMenu}
-                  initial={reduceMotion ? false : { opacity: 0, x: -16 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{
-                    duration: reduceMotion ? 0 : 0.35,
-                    delay: reduceMotion ? 0 : 0.08 + index * 0.055,
-                    ease: "easeOut",
-                  }}
-                >
-                  <span>{item}</span>
-                  <ArrowIcon />
-                </motion.a>
-              ))}
+              <div className="pg-mobile-nav-links">
+                {navItems.map((item, index) => (
+                  <motion.a
+                    key={item.id}
+                    href={item.href}
+                    onClick={closeMenu}
+                    initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: reduceMotion ? 0 : 0.34,
+                      delay: reduceMotion ? 0 : 0.08 + index * 0.055,
+                      ease: [0.23, 1, 0.32, 1],
+                    }}
+                  >
+                    <span>{item.label}</span>
+                    <ArrowIcon />
+                  </motion.a>
+                ))}
+              </div>
 
-              <motion.a
-                className="mobile-primary-cta"
-                href="#admissions"
-                onClick={closeMenu}
-                whileTap={reduceMotion ? undefined : { scale: 0.97 }}
-              >
-                Plan a Visit
-                <ArrowIcon />
-              </motion.a>
+              <div className="pg-mobile-nav-contact">
+                <a href="tel:+918104567540">+91 8104567540</a>
+                <a href="mailto:mkjchildrenschool@gmail.com">mkjchildrenschool@gmail.com</a>
+              </div>
             </nav>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <motion.div
-        className="site-scroll-progress"
-        aria-hidden="true"
-        style={{ scaleX: scrollYProgress }}
-      />
+      <motion.div className="pg-page-progress" aria-hidden="true" style={{ scaleX: scrollYProgress }} />
     </motion.header>
   );
 }
