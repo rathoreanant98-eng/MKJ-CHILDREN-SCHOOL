@@ -191,8 +191,8 @@ export default function Hero() {
 
       <motion.figure
         className="pg-hero-crop pg-hero-crop--left cinema-hero-crop cinema-hero-crop--left"
-        initial={reduceMotion ? false : { opacity: 0, x: -40, rotate: -8 }}
-        animate={{ opacity: 1, x: 0, rotate: -5 }}
+        initial={reduceMotion ? false : { opacity: 0, scale: 0.96 }}
+        animate={{ opacity: 1, scale: 1 }}
         transition={{
           duration: reduceMotion ? 0 : 0.82,
           delay: reduceMotion ? 0 : 0.52,
@@ -210,8 +210,8 @@ export default function Hero() {
 
       <motion.figure
         className="pg-hero-crop pg-hero-crop--right cinema-hero-crop cinema-hero-crop--right"
-        initial={reduceMotion ? false : { opacity: 0, x: 40, rotate: 8 }}
-        animate={{ opacity: 1, x: 0, rotate: 5 }}
+        initial={reduceMotion ? false : { opacity: 0, scale: 0.96 }}
+        animate={{ opacity: 1, scale: 1 }}
         transition={{
           duration: reduceMotion ? 0 : 0.86,
           delay: reduceMotion ? 0 : 0.6,
