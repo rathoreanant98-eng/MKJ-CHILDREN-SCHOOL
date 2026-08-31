@@ -95,10 +95,9 @@ function JourneyScene({ scene, index, total, progress, reduceMotion }) {
       className="cinema-journey-scene"
       style={
         reduceMotion
-          ? { opacity: first ? 1 : 0 }
+          ? { opacity: 1 }
           : { opacity, scale, x, rotateY, rotateZ }
       }
-      aria-hidden={reduceMotion && !first ? "true" : undefined}
     >
       <div className="cinema-journey-media">
         <motion.img
@@ -206,9 +205,7 @@ export default function ImmersiveJourney() {
           </div>
 
           <div className="cinema-journey-progress" aria-hidden="true">
-            <motion.span
-              style={{ scaleX: reduceMotion ? 1 : smoothProgress }}
-            />
+            <motion.span style={{ scaleX: reduceMotion ? 1 : smoothProgress }} />
           </div>
         </div>
 
