@@ -10,6 +10,7 @@ import "./hardening.css";
 import "./premium-global.css";
 import "./cinematic.css";
 import "./campus-scroll.css";
+import "./anchor-navigation.css";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

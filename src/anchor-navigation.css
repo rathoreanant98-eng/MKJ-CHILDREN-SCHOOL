@@ -1,0 +1,27 @@
+:root {
+  --mkj-anchor-offset: 126px;
+}
+
+#purpose-title,
+#academics-title,
+#campus-title,
+#admissions-title,
+#contact-title {
+  scroll-margin-top: var(--mkj-anchor-offset);
+}
+
+#top {
+  scroll-margin-top: 0;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --mkj-anchor-offset: 108px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
