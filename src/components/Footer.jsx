@@ -1,10 +1,10 @@
 import { motion, useReducedMotion } from "motion/react";
 
 const quickLinks = [
-  { label: "About", href: "#about" },
-  { label: "Academics", href: "#academics" },
-  { label: "Campus Life", href: "#campus-life" },
-  { label: "Admissions", href: "#admissions" },
+  { label: "About", href: "#purpose-title" },
+  { label: "Academics", href: "#academics-title" },
+  { label: "Campus Life", href: "#campus-title" },
+  { label: "Admissions", href: "#admissions-title" },
 ];
 
 const directionsUrl =
@@ -33,7 +33,7 @@ export default function Footer() {
           transition={{ duration: reduceMotion ? 0 : 0.66, ease: [0.23, 1, 0.32, 1] }}
         >
           <p className="pg-kicker">Visit and connect</p>
-          <h2>Meet MKJ in person.</h2>
+          <h2 id="contact-title">Meet MKJ in person.</h2>
           <p>
             A school day is easier to understand when you can see the spaces, meet the people,
             and ask your questions directly.
