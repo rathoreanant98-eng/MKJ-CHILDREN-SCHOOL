@@ -8,6 +8,7 @@ import "./experience.css";
 import "./qa.css";
 import "./hardening.css";
 import "./premium-global.css";
+import "./cinematic.css";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
