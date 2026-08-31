@@ -1,5 +1,6 @@
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import ImmersiveJourney from "./components/ImmersiveJourney";
 import AboutMission from "./components/AboutMission";
 import Academics from "./components/Academics";
 import CampusLife from "./components/CampusLife";
@@ -14,6 +15,7 @@ export default function App() {
       <Navbar />
       <main id="main-content" tabIndex={-1}>
         <Hero />
+        <ImmersiveJourney />
         <AboutMission />
         <Academics />
         <CampusLife />
