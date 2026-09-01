@@ -157,7 +157,7 @@ export default function Hero() {
           <motion.div className="pg-hero-actions cinema-hero-actions" {...reveal(0.42)}>
             <motion.a
               className="pg-button pg-button--light"
-              href="#admissions"
+              href="#admissions-title"
               whileHover={reduceMotion ? undefined : { y: -3 }}
               whileTap={reduceMotion ? undefined : { scale: 0.97 }}
             >
@@ -166,7 +166,7 @@ export default function Hero() {
             </motion.a>
             <motion.a
               className="pg-button pg-button--glass"
-              href="#academics"
+              href="#academics-title"
               whileHover={reduceMotion ? undefined : { y: -3 }}
               whileTap={reduceMotion ? undefined : { scale: 0.97 }}
             >
