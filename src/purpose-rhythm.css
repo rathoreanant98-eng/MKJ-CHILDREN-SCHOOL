@@ -1,0 +1,61 @@
+/* Purpose section scroll rhythm and spacing corrections. */
+
+@media (min-width: 1024px) {
+  .pg-purpose-story {
+    min-height: 112vh;
+    margin-top: clamp(76px, 7vw, 112px);
+  }
+
+  .pg-purpose-media {
+    margin-top: clamp(88px, 8vh, 124px);
+  }
+
+  .pg-purpose-principles {
+    margin-top: clamp(48px, 4.5vw, 72px);
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 850px) {
+  .pg-purpose-story {
+    min-height: 118vh;
+    margin-top: 72px;
+  }
+
+  .pg-purpose-sticky {
+    top: 124px;
+  }
+
+  .pg-purpose-media {
+    margin-top: 68px;
+  }
+
+  .pg-purpose-principles {
+    margin-top: 38px;
+  }
+
+  .pg-purpose-principles article {
+    padding-block: 34px 38px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .pg-purpose-story {
+    margin-top: clamp(58px, 8vw, 76px);
+    gap: 38px;
+  }
+
+  .pg-purpose-principles {
+    margin-top: 54px;
+  }
+}
+
+@media (max-width: 767px) {
+  .pg-purpose-story {
+    margin-top: 48px;
+    gap: 32px;
+  }
+
+  .pg-purpose-principles {
+    margin-top: 42px;
+  }
+}

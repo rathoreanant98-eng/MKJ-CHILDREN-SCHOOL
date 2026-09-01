@@ -28,10 +28,10 @@ const principles = [
 ];
 
 function ScrollWord({ word, index, total, progress, reduceMotion }) {
-  const start = 0.08 + (index / total) * 0.68;
-  const end = Math.min(start + 0.16, 0.94);
-  const opacity = useTransform(progress, [start, end], [0.18, 1]);
-  const y = useTransform(progress, [start, end], [8, 0]);
+  const start = 0.035 + (index / total) * 0.72;
+  const end = Math.min(start + 0.11, 0.9);
+  const opacity = useTransform(progress, [start, end], [0.16, 1]);
+  const y = useTransform(progress, [start, end], [7, 0]);
 
   return (
     <motion.span style={reduceMotion ? { opacity: 1 } : { opacity, y }}>
@@ -41,14 +41,14 @@ function ScrollWord({ word, index, total, progress, reduceMotion }) {
 }
 
 export default function AboutMission() {
-  const sectionRef = useRef(null);
+  const storyRef = useRef(null);
   const reduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start 72%", "end 28%"],
+  const { scrollYProgress: storyProgress } = useScroll({
+    target: storyRef,
+    offset: ["start 78%", "end 58%"],
   });
-  const photoY = useTransform(scrollYProgress, [0, 1], [-28, 36]);
-  const photoScale = useTransform(scrollYProgress, [0, 1], [1.08, 1]);
+  const photoY = useTransform(storyProgress, [0, 1], [-24, 28]);
+  const photoScale = useTransform(storyProgress, [0, 1], [1.06, 1]);
 
   const words = statement.split(" ");
 
@@ -64,7 +64,7 @@ export default function AboutMission() {
   });
 
   return (
-    <section ref={sectionRef} id="about" className="pg-purpose" aria-labelledby="purpose-title">
+    <section id="about" className="pg-purpose" aria-labelledby="purpose-title">
       <div className="pg-section-shell pg-purpose-shell">
         <div className="pg-purpose-intro">
           <motion.p className="pg-kicker" {...entrance(0)}>Our purpose</motion.p>
@@ -78,7 +78,7 @@ export default function AboutMission() {
           </motion.p>
         </div>
 
-        <div className="pg-purpose-story">
+        <div ref={storyRef} className="pg-purpose-story">
           <div className="pg-purpose-sticky">
             <p className="pg-purpose-statement" aria-label={statement}>
               {words.map((word, index) => (
@@ -87,7 +87,7 @@ export default function AboutMission() {
                   word={word}
                   index={index}
                   total={words.length}
-                  progress={scrollYProgress}
+                  progress={storyProgress}
                   reduceMotion={reduceMotion}
                 />
               ))}
@@ -96,7 +96,7 @@ export default function AboutMission() {
             <motion.div
               className="pg-purpose-rule"
               aria-hidden="true"
-              style={reduceMotion ? undefined : { scaleX: scrollYProgress }}
+              style={reduceMotion ? undefined : { scaleX: storyProgress }}
             />
           </div>
 
@@ -128,12 +128,12 @@ export default function AboutMission() {
           {principles.map((principle, index) => (
             <motion.article
               key={principle.title}
-              initial={reduceMotion ? false : { opacity: 0, y: 28 }}
+              initial={reduceMotion ? false : { opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.35 }}
+              viewport={{ once: true, amount: 0.3 }}
               transition={{
-                duration: reduceMotion ? 0 : 0.58,
-                delay: reduceMotion ? 0 : index * 0.07,
+                duration: reduceMotion ? 0 : 0.54,
+                delay: reduceMotion ? 0 : index * 0.055,
                 ease: [0.23, 1, 0.32, 1],
               }}
             >
