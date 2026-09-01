@@ -13,6 +13,7 @@ import "./campus-scroll.css";
 import "./anchor-navigation.css";
 import "./purpose-rhythm.css";
 import "./academics-polish.css";
+import "./footer-spacing.css";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
