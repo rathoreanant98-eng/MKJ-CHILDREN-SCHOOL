@@ -1,0 +1,88 @@
+/* Mobile interaction and viewport hardening after the motion-first redesign. */
+
+@media (max-width: 960px) {
+  .pg-mobile-menu {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .pg-mobile-nav {
+    height: auto;
+    min-height: 100%;
+  }
+
+  .pg-brand,
+  .pg-menu-toggle {
+    min-height: 44px;
+  }
+
+  .pg-menu-toggle {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+  }
+
+  .pg-mobile-nav a,
+  .pg-menu-toggle,
+  .cinema-hero-actions a,
+  .pg-trust-controls button,
+  .pg-trust-tabs button,
+  .pg-admissions-contact-row a,
+  .pg-enquiry-form button {
+    touch-action: manipulation;
+  }
+}
+
+@media (max-width: 767px) {
+  .pg-mobile-menu {
+    padding-top: max(92px, calc(82px + env(safe-area-inset-top)));
+    padding-right: max(16px, env(safe-area-inset-right));
+    padding-bottom: max(24px, env(safe-area-inset-bottom));
+    padding-left: max(16px, env(safe-area-inset-left));
+  }
+
+  .pg-enquiry-form input,
+  .pg-enquiry-form textarea {
+    font-size: 16px;
+  }
+
+  .pg-mobile-nav-contact a,
+  .pg-footer-contact a {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 767px) and (max-height: 700px) {
+  .cinema-journey-intro {
+    top: 76px;
+  }
+
+  .cinema-journey-intro h2 {
+    font-size: clamp(2.4rem, 11.5vw, 3.5rem);
+  }
+
+  .cinema-journey-scenes {
+    top: 62%;
+  }
+
+  .cinema-journey-note {
+    display: none;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .pg-trust-controls button:hover {
+    background: transparent;
+    color: var(--cinema-ink);
+  }
+
+  .pg-trust-tabs button:hover:not(.pg-trust-tab--active) {
+    background: transparent;
+  }
+
+  .pg-admissions-contact-row a:hover {
+    background: transparent;
+  }
+}
