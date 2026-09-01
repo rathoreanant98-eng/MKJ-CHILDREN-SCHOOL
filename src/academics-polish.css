@@ -1,0 +1,19 @@
+.cinema-academics-note {
+  max-width: 920px;
+  margin: 42px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid rgba(13, 29, 51, 0.14);
+  color: rgba(13, 29, 51, 0.7);
+  font-size: clamp(0.76rem, 0.72rem + 0.14vw, 0.86rem);
+  font-weight: 600;
+  line-height: 1.65;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .cinema-academics-note {
+    margin-top: 30px;
+    padding-top: 18px;
+    text-align: left;
+  }
+}
