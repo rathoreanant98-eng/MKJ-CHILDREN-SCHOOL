@@ -1,0 +1,40 @@
+.pg-footer-shell {
+  position: relative;
+  isolation: isolate;
+}
+
+.pg-footer-hero,
+.pg-footer-grid,
+.pg-footer-bottom {
+  position: relative;
+  z-index: 1;
+}
+
+.pg-footer-word {
+  position: absolute;
+  left: 0;
+  bottom: 34px;
+  z-index: 0;
+  margin: 0;
+  color: rgba(16, 33, 58, 0.045);
+  font-size: clamp(8rem, 21vw, 21rem);
+  line-height: 0.72;
+  pointer-events: none;
+}
+
+.pg-footer-bottom {
+  margin-top: clamp(54px, 5vw, 78px);
+  padding-top: 22px;
+  border-top: 1px solid rgba(16, 33, 58, 0.14);
+}
+
+@media (max-width: 767px) {
+  .pg-footer-word {
+    display: none;
+  }
+
+  .pg-footer-bottom {
+    margin-top: 52px;
+    padding-top: 20px;
+  }
+}
