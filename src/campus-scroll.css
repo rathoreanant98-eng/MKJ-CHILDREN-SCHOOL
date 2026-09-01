@@ -37,7 +37,7 @@
 
 .cinema-campus-motion {
   position: relative;
-  min-height: 360vh;
+  min-height: 440vh;
 }
 
 .cinema-campus-sticky {
@@ -96,14 +96,14 @@
   height: 100%;
   display: flex;
   align-items: stretch;
-  gap: clamp(20px, 2vw, 34px);
+  gap: 2vw;
   padding: 0 max(28px, calc((100vw - var(--cinema-container)) / 2));
   box-sizing: border-box;
   will-change: transform;
 }
 
 .cinema-campus-stage-shell .cinema-campus-frame {
-  width: min(70vw, 1040px);
+  width: 82vw;
   height: 100%;
   min-height: 0;
   margin: 0;
@@ -111,13 +111,12 @@
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
   align-self: stretch;
+  box-sizing: border-box;
 }
 
 .cinema-campus-stage-shell .cinema-campus-frame:nth-child(2),
 .cinema-campus-stage-shell .cinema-campus-frame:nth-child(4) {
-  width: min(58vw, 850px);
-  padding-top: clamp(16px, 3vh, 30px);
-  box-sizing: border-box;
+  padding-top: clamp(10px, 1.8vh, 18px);
 }
 
 .cinema-campus-stage-shell .cinema-campus-media {
@@ -134,23 +133,25 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center center;
 }
 
 .cinema-campus-stage-shell .cinema-campus-frame figcaption {
-  min-height: 88px;
+  min-height: 92px;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(220px, 0.62fr);
-  gap: 32px;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 0.58fr);
+  gap: clamp(28px, 3vw, 48px);
   align-items: start;
   padding-top: 18px;
 }
 
 .cinema-campus-stage-shell .cinema-campus-frame h3 {
+  margin: 0;
   font-size: clamp(1.8rem, 2.7vw, 3.2rem);
 }
 
 .cinema-campus-stage-shell .cinema-campus-frame p {
+  margin: 3px 0 0;
+  max-width: 42ch;
   font-size: 0.9rem;
 }
 
@@ -178,8 +179,13 @@
     padding-bottom: 18px;
   }
 
+  .cinema-campus-stage-shell .cinema-campus-frame:nth-child(2),
+  .cinema-campus-stage-shell .cinema-campus-frame:nth-child(4) {
+    padding-top: 10px;
+  }
+
   .cinema-campus-stage-shell .cinema-campus-frame figcaption {
-    min-height: 74px;
+    min-height: 76px;
     gap: 24px;
     padding-top: 14px;
   }
