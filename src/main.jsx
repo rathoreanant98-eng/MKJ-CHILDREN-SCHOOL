@@ -11,6 +11,7 @@ import "./premium-global.css";
 import "./cinematic.css";
 import "./campus-scroll.css";
 import "./anchor-navigation.css";
+import "./purpose-rhythm.css";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
