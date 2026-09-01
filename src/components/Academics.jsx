@@ -154,8 +154,10 @@ export default function Academics() {
           transition={{ duration: reduceMotion ? 0 : 0.6, ease: [0.23, 1, 0.32, 1] }}
         >
           <div>
-            <p className="pg-kicker">Learning journey</p>
-            <h2 id="academics-title">
+            <p className="pg-kicker" style={{ color: "var(--cinema-blue)" }}>
+              Learning journey
+            </p>
+            <h2 id="academics-title" style={{ color: "var(--cinema-ink)" }}>
               Learning moves through
               <span
                 className="pg-inline-photo cinema-inline-photo"
